@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.css'
 const App = () =>{
-const [destination, setDestination] = useState([])
-const [location, setLocation] = useState('')
-const [sights, setSights] = useState([])
-const [img, setImg] = useState('')
-const [restaurants, setRestaurants] = useState([])
-const [time, setTime] = useState('')
-const [cost, setCost] = useState(2)
 
+const [location, setLocation] = useState()
+const [sights, setSights] = useState()
+const [img, setImg] = useState()
+const [restaurants, setRestaurants] = useState()
+const [time, setTime] = useState()
+const [cost, setCost] = useState()
+
+const [destination, setDestination] = useState([])
 
 const handleLocation = (event) =>{
   setLocation(event.target.value)
@@ -29,10 +31,11 @@ const handleTime = (event) =>{
 const handleCost = (event) =>{
   setCost(event.target.value)
 }
+
 const addLocation = (event) =>{
   event.preventDefault()
   axios.post(
-    '/', {
+    'http://localhost:3000/', {
       location: location,
       mustSee: sights,
       image: img,
@@ -41,14 +44,15 @@ const addLocation = (event) =>{
       costPerPerson: cost  
     }
   ).then(() =>{
-    axios.get('/').then( (response) =>{
-      ServiceWorkerContainer(response.data)
+    axios.get('http://localhost:3000/').then( (response) =>{
+ 
+      setDestination(response.data)
     })
   })
 }
 const handleLocationUpdate = (event, locationData) =>{
   event.preventDefault();
-  axios.put(`/${locationData._id}`,
+  axios.put(`http://localhost:3000/${locationData._id}`,
     {
     location: location,
     mustSee: sights,
@@ -57,23 +61,23 @@ const handleLocationUpdate = (event, locationData) =>{
     bestTime: time,
     costPerPerson: cost
   }).then(() =>{
-    axios.get('/').then((response) =>{
+    axios.get('http://localhost:3000/').then((response) =>{
       setDestination(response.data)
     })
   })
 }
 useEffect(()=>{
   axios
-      .get('')
+      .get('http://localhost:3000/')
       .then((response)=>{
         setDestination(response.data);
       })
 },[])
 
 
-const handleLocationDelete = (event, locationData) =>{
-  axios.delete(`/${locationData._id}`,).then(() =>{
-axios.get('/').then((response) =>{
+const handleLocationDelete = (locationData) =>{
+  axios.delete(`http://localhost:3000/${locationData._id}`,).then(() =>{
+axios.get('http://localhost:3000/').then((response) =>{
 setDestination(response.data)
 })
   })
@@ -82,32 +86,55 @@ setDestination(response.data)
 
   return (
 <>
+<div className='container'>
   <h1>Travel Blog</h1>
     <form onSubmit={addLocation}>
-      Name: <input type='text' onChange={handleLocation}></input>
-      image: <input type='text' onChange={handleImg}></input>
-      Must See: <input type='text' onChange={handleSights}></input>
-      Top Restuants: <input type="number" onChange={handleRestaurants}></input>
-      Average Cost Per-Person: <input type='text' onChange={handleCost}></input>
-      Best Time of Year: <input type='text' onChange={handleTime}></input>
+      Name: <input className='form-control' type='text' onChange={handleLocation}/>
+      Image: <input className='form-control' type='text' onChange={handleImg}/>
+      Must See: <input className='form-control' type='text' onChange={handleSights}/>
+      Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants}/>
+      Average Cost Per-Person: <input className='form-control' type='number' onChange={handleCost}/>
+      Best Time of Year: <input className='form-control' type='text' onChange={handleTime}/>
       <input type="submit" value='Add Location'/>
     </form>
      <h1>Top Spots</h1> 
-     {/* {destination.map((spots) =>{
+     <div className='container'>
+     {destination.map((spots) =>{
       return(
       <div key={spots._id}>
         <h4>{spots.location}</h4>
-        <h4>{spots.sights}</h4>
-        <h4>{spots.img}</h4>
-        <h4>{spots.restaurants}</h4>
-        <h4>{spots.cost}</h4>
-        <h4>{spots.time}</h4>
+        <img src={spots.image}/>
+        <h4> Things to Do: </h4>
+        <ul>
+        <li>{spots.mustSee[0]}</li>
+        <li>{spots.mustSee[1]}</li>
+        <li>{spots.mustSee[2]}</li>
+        <li>{spots.mustSee[3]}</li>
+        </ul>
+        <h4>Restaurants to try: </h4>
+        <ul>
+        <li>{spots.restaurantsToTry[0]}</li>
+        <li>{spots.restaurantsToTry[1]}</li>
+        <li>{spots.restaurantsToTry[2]}</li>
+        <li>{spots.restaurantsToTry[3]}</li>
+        </ul>
+        <h4>Average cost PPPD  :{spots.costPerPerson} $</h4>
+        <h4>The best time to come: {spots.bestTime}</h4>
+        <form onSubmit={(event)=>{handleLocationUpdate(event, spots)}}>
+      Name: <input className='form-control' type='text' defaultValue={spots.location} onChange={handleLocation}/>
+      Image: <input className='form-control' type='text' defaultValue={spots.image} onChange={handleImg}/>
+      Must See: <input className='form-control' type='text' defaultValue={spots.mustSee} onChange={handleSights}/>
+      Top Restaurants: <input className='form-control' type="text" defaultValue={spots.restaurantsToTry} onChange={handleRestaurants}/>
+      Average Cost Per-Person: <input className='form-control' type='number' defaultValue={spots.costPerPerson} onChange={handleCost}/>
+      Best Time of Year: <input className='form-control' type='text' defaultValue={spots.bestTime} onChange={handleTime}/>
+      <input type="submit" value='Update'/>
+    </form>
         <button onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
        )}
-      )} */}
-
-
+      )}
+</div>
+</div>
      </>) 
   
 }
