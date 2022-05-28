@@ -95,7 +95,7 @@ useEffect(()=>{
       <input type="submit" value='Add Location'/>
     </form>
      <h1>Top Spots</h1>
-     {destination.map((spots) =>{
+     {/* {destination.map((spots) =>{
       return(
       <div key={spots._id}>
         <h4>{spots.location}</h4>
@@ -106,7 +106,7 @@ useEffect(()=>{
         <h4>{spots.time}</h4>
       </div>
        )
-       })} 
+       })}  */}
     
     
     
