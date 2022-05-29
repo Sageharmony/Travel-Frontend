@@ -103,7 +103,7 @@ setDestination(response.data)
       return(
       <div key={spots._id}>
         <h4>{spots.location}</h4>
-        <img src={spots.image}/>
+        <img className='img-fluid' src={spots.image}/>
         <h4> Things to Do: </h4>
         <ul>
         <li>{spots.mustSee[0]}</li>
@@ -120,7 +120,7 @@ setDestination(response.data)
         </ul>
         <h4>Average cost PPPD  :{spots.costPerPerson} $</h4>
         <h4>The best time to come: {spots.bestTime}</h4>
-        <form onSubmit={(event)=>{handleLocationUpdate(event, spots)}}>
+        {/* <form onSubmit={(event)=>{handleLocationUpdate(event, spots)}}>
       Name: <input className='form-control' type='text' defaultValue={spots.location} onChange={handleLocation}/>
       Image: <input className='form-control' type='text' defaultValue={spots.image} onChange={handleImg}/>
       Must See: <input className='form-control' type='text' defaultValue={spots.mustSee} onChange={handleSights}/>
@@ -128,7 +128,7 @@ setDestination(response.data)
       Average Cost Per-Person: <input className='form-control' type='number' defaultValue={spots.costPerPerson} onChange={handleCost}/>
       Best Time of Year: <input className='form-control' type='text' defaultValue={spots.bestTime} onChange={handleTime}/>
       <input type="submit" value='Update'/>
-    </form>
+    </form> */}
         <button onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
        )}
