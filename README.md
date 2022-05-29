@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -77,4 +76,4 @@ Frontend for Project 3
 =======
 # Travel-Frontend
 Frontend for Project 3
->>>>>>> 85c3e00 (Initial commit)
+
