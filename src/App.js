@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios'
 const App = () =>{
-const [destination, setDestination] = useState([])
+const [spot, setSpot] = useState([])
 const [location, setLocation] = useState('')
 const [sights, setSights] = useState([])
 const [img, setImg] = useState('')
@@ -58,7 +58,7 @@ const handleLocationUpdate = (event, locationData) =>{
     costPerPerson: cost
   }).then(() =>{
     axios.get('/').then((response) =>{
-      setDestination(response.data)
+      setSpot(response.data)
     })
   })
 }
@@ -66,7 +66,7 @@ useEffect(()=>{
   axios
       .get('')
       .then((response)=>{
-        setDestination(response.data);
+        setSpot(response.data);
       })
 },[])
 
@@ -74,7 +74,7 @@ useEffect(()=>{
 const handleLocationDelete = (event, locationData) =>{
   axios.delete(`/${locationData._id}`,).then(() =>{
 axios.get('/').then((response) =>{
-setDestination(response.data)
+setSpot(response.data)
 })
   })
 }
@@ -92,8 +92,7 @@ setDestination(response.data)
       Best Time of Year: <input type='text' onChange={handleTime}></input>
       <input type="submit" value='Add Location'/>
     </form>
-     <h1>Top Spots</h1> 
-     {/* {destination.map((spots) =>{
+     {spot.map((spots) =>{
       return(
       <div key={spots._id}>
         <h4>{spots.location}</h4>
@@ -105,7 +104,7 @@ setDestination(response.data)
         <button onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
        )}
-      )} */}
+      )}
 
 
      </>) 
