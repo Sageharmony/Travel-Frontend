@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
+
+
 const App = () =>{
 
 const [location, setLocation] = useState()
@@ -82,12 +84,24 @@ setDestination(response.data)
 })
   })
 }
-
-
+const lowToHigh = () =>{
+const sort = [...destination].sort((a,b)=>{
+  return a.costPerPerson > b.costPerPerson ? 1 : -1
+})
+ setDestination(sort)
+}
+const highToLow = () =>{
+  const sort = [...destination].sort((a,b)=>{
+    return a.costPerPerson < b.costPerPerson ? 1 : -1
+  })
+   setDestination(sort)
+  }
   return (
 <>
 <div className='container'>
   <h1>Travel Blog</h1>
+  <button onClick = {lowToHigh}>Sort low to high</button>
+  <button onClick = {highToLow}>Sort high to low</button>
     <form onSubmit={addLocation}>
       Name: <input className='form-control' type='text' onChange={handleLocation}/>
       Image: <input className='form-control' type='text' onChange={handleImg}/>
@@ -98,6 +112,9 @@ setDestination(response.data)
       <input type="submit" value='Add Location'/>
     </form>
      <h1>Top Spots</h1> 
+ 
+     
+
      <div className='container'>
      {destination.map((spots) =>{
       return(
@@ -106,19 +123,19 @@ setDestination(response.data)
         <img className='img-fluid' src={spots.image}/>
         <h4> Things to Do: </h4>
         <ul>
-        <li><a href={spots.mustSee[0].link} target="_blank">{spots.mustSee[0].name}</a></li>
-        <li><a href={spots.mustSee[1].link} target="_blank">{spots.mustSee[1].name}</a></li>
-        <li><a href={spots.mustSee[2].link} target="_blank">{spots.mustSee[2].name}</a></li>
-        <li><a href={spots.mustSee[3].link} target="_blank">{spots.mustSee[3].name}</a></li>
+        <li><a href={spots.mustSee[0].link} target="_blank" rel="noreferrer">{spots.mustSee[0].name}</a></li>
+        <li><a href={spots.mustSee[1].link} target="_blank" rel="noreferrer">{spots.mustSee[1].name}</a></li>
+        <li><a href={spots.mustSee[2].link} target="_blank" rel="noreferrer">{spots.mustSee[2].name}</a></li>
+        <li><a href={spots.mustSee[3].link} target="_blank" rel="noreferrer">{spots.mustSee[3].name}</a></li>
         </ul>
         <h4>Restaurants to try: </h4>
         <ul>
-        <li><a href={spots.restaurantsToTry[0].link}target="_blank">{spots.restaurantsToTry[0].name}</a></li>
-        <li><a href={spots.restaurantsToTry[1].link}target="_blank">{spots.restaurantsToTry[1].name}</a></li>
-        <li><a href={spots.restaurantsToTry[2].link}target="_blank">{spots.restaurantsToTry[2].name}</a></li>
-        <li><a href={spots.restaurantsToTry[3].link}target="_blank">{spots.restaurantsToTry[3].name}</a></li>
+        <li><a href={spots.restaurantsToTry[0].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[0].name}</a></li>
+        <li><a href={spots.restaurantsToTry[1].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[1].name}</a></li>
+        <li><a href={spots.restaurantsToTry[2].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[2].name}</a></li>
+        <li><a href={spots.restaurantsToTry[3].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[3].name}</a></li>
         </ul>
-        <h4>Average cost PPPD  :{spots.costPerPerson} $</h4>
+        <h4>Per person / per day:{spots.costPerPerson} $</h4>
         <h4>The best time to come: {spots.bestTime}</h4>
         {/* <form onSubmit={(event)=>{handleLocationUpdate(event, spots)}}>
       Name: <input className='form-control' type='text' defaultValue={spots.location} onChange={handleLocation}/>
