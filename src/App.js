@@ -7,16 +7,62 @@ import 'bootstrap/dist/css/bootstrap.css'
 const App = () =>{
 
 const [location, setLocation] = useState()
+const [country, setCountry] = useState()
 const [sights, setSights] = useState()
 const [img, setImg] = useState()
 const [restaurants, setRestaurants] = useState()
 const [time, setTime] = useState()
 const [cost, setCost] = useState()
+//______adding new list 
+const [newCity, setNewCity] = useState()
+const [newCountry, setNewCountry] = useState()
+const [places, setPlace] = useState([])
+//
 
 const [destination, setDestination] = useState([])
 
+//_______new city add
+const handleNewCity= (event) =>{
+  setNewCity(event.target.value)
+}
+const handleNewCountry= (event) =>{
+  setNewCountry(event.target.value)
+}
+const addNewList = (event) =>{
+  event.preventDefault()
+  axios.post(
+    'http://localhost:3000/placestogo', {
+      location: newCity,
+      country: newCountry,
+     
+    }
+  ).then(() =>{
+    axios.get('http://localhost:3000/placestogo').then( (response) =>{
+ 
+      setPlace(response.data)
+    })
+  })
+}
+useEffect(()=>{
+  axios
+      .get('http://localhost:3000/placestogo')
+      .then((response)=>{
+        setPlace(response.data);
+      })
+},[])
+const handleNewDelete = (newListData) =>{
+  axios.delete(`http://localhost:3000/placestogo/${newListData._id}`).then(() =>{
+axios.get('http://localhost:3000/placestogo').then((response) =>{
+setPlace(response.data)
+})
+  })
+}
+//_________________________
 const handleLocation = (event) =>{
   setLocation(event.target.value)
+}
+const handleCountry = (event) =>{
+  setCountry(event.target.value)
 }
 const handleSights = (event) =>{
   setSights(event.target.value)
@@ -39,6 +85,7 @@ const addLocation = (event) =>{
   axios.post(
     'http://localhost:3000/', {
       location: location,
+      country: country,
       mustSee: sights,
       image: img,
       restaurantsToTry: restaurants,
@@ -99,26 +146,27 @@ const highToLow = () =>{
   return (
 <>
 <div className='container'>
-  <h1>Travel Blog</h1>
+  <h1>Places</h1>
+
   <button onClick = {lowToHigh}>Sort low to high</button>
   <button onClick = {highToLow}>Sort high to low</button>
-    <form onSubmit={addLocation}>
-      Name: <input className='form-control' type='text' onChange={handleLocation}/>
-      Image: <input className='form-control' type='text' onChange={handleImg}/>
-      Must See: <input className='form-control' type='text' onChange={handleSights}/>
-      Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants}/>
-      Average Cost Per-Person: <input className='form-control' type='number' onChange={handleCost}/>
+    {/* <form onSubmit={addLocation}>
+      City: <input className='form-control' type='text' onChange={handleLocation}/>
+      Country: <input className='form-control' type='text' onChange={handleCountry}/>
+      Image: <input className='form-control' type='text' onChange={handleImg}/> */}
+      {/* Must See: <input className='form-control' type='text' onChange={handleSights.toString()}/>
+      Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants.toString()}/> */}
+      {/* Average Cost Per-Person: <input className='form-control' type='number' onChange={handleCost}/>
       Best Time of Year: <input className='form-control' type='text' onChange={handleTime}/>
-      <input type="submit" value='Add Location'/>
-    </form>
+      <input type="submit" value='Add Location'/> */}
+    {/* </form> */}
      <h1>Top Spots</h1> 
- 
-     
 
      <div className='container'>
      {destination.map((spots) =>{
       return(
       <div key={spots._id}>
+        
         <h4>{spots.location}</h4>
         <img className='img-fluid' src={spots.image}/>
         <h4> Things to Do: </h4>
@@ -151,6 +199,24 @@ const highToLow = () =>{
        )}
       )}
 </div>
+</div>
+<div className='container'>
+<h2>Places I want to go</h2>
+  <form onSubmit={addNewList}>
+  <label>City: <input className='form-control' type='text' onChange={handleNewCity}/></label>
+  <label>Country: <input className='form-control'  type='text' onChange={handleNewCountry}/></label>
+  <input type="submit" value='Add Location'/>
+  </form>
+  <ol>
+  {places.map((list)=>{
+    return (
+      <>
+      <li>{list.location}, {list.country} </li>
+      <button onClick={(event)=>handleNewDelete(list)}>Delete</button>
+      </>
+    )
+  })}
+</ol>
 </div>
      </>) 
   
