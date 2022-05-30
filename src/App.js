@@ -106,17 +106,17 @@ setDestination(response.data)
         <img className='img-fluid' src={spots.image}/>
         <h4> Things to Do: </h4>
         <ul>
-        <li>{spots.mustSee[0]}</li>
-        <li>{spots.mustSee[1]}</li>
-        <li>{spots.mustSee[2]}</li>
-        <li>{spots.mustSee[3]}</li>
+        <li><a href={spots.mustSee[0].link} target="_blank">{spots.mustSee[0].name}</a></li>
+        <li><a href={spots.mustSee[1].link} target="_blank">{spots.mustSee[1].name}</a></li>
+        <li><a href={spots.mustSee[2].link} target="_blank">{spots.mustSee[2].name}</a></li>
+        <li><a href={spots.mustSee[3].link} target="_blank">{spots.mustSee[3].name}</a></li>
         </ul>
         <h4>Restaurants to try: </h4>
         <ul>
-        <li>{spots.restaurantsToTry[0]}</li>
-        <li>{spots.restaurantsToTry[1]}</li>
-        <li>{spots.restaurantsToTry[2]}</li>
-        <li>{spots.restaurantsToTry[3]}</li>
+        <li><a href={spots.restaurantsToTry[0].link}target="_blank">{spots.restaurantsToTry[0].name}</a></li>
+        <li><a href={spots.restaurantsToTry[1].link}target="_blank">{spots.restaurantsToTry[1].name}</a></li>
+        <li><a href={spots.restaurantsToTry[2].link}target="_blank">{spots.restaurantsToTry[2].name}</a></li>
+        <li><a href={spots.restaurantsToTry[3].link}target="_blank">{spots.restaurantsToTry[3].name}</a></li>
         </ul>
         <h4>Average cost PPPD  :{spots.costPerPerson} $</h4>
         <h4>The best time to come: {spots.bestTime}</h4>
