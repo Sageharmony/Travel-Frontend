@@ -6,13 +6,14 @@ import { FaTimes } from "react-icons/fa"
 import { FaHeart } from "react-icons/fa"
 import { FaHeartBroken } from "react-icons/fa"
 import { FaCheck } from "react-icons/fa"
+import { FaCircle} from "react-icons/fa"
 const App = () =>{
 
 const [location, setLocation] = useState()
 const [country, setCountry] = useState()
-const [sights, setSights] = useState()
+const [sights, setSights] = useState({})
 const [img, setImg] = useState()
-const [restaurants, setRestaurants] = useState()
+const [restaurants, setRestaurants] = useState({})
 const [time, setTime] = useState()
 const [cost, setCost] = useState()
 const [destination, setDestination] = useState([])
@@ -142,7 +143,7 @@ useEffect(()=>{
 
 
 const handleLocationDelete = (locationData) =>{
-  axios.delete(`http://localhost:3000/${locationData._id}`,).then(() =>{
+  axios.delete(`http://localhost:3000/${locationData._id}`).then(() =>{
 axios.get('http://localhost:3000/').then((response) =>{
 setDestination(response.data)
 })
@@ -171,22 +172,22 @@ const highToLow = () =>{
 <>
 <div className='container'>
   <h1>Places</h1>
-  <p className='row'>
+  <div className='row'>
       <p className='col-sm-6'>
-      <h2><FaHeart onClick={()=>(setLike(like + 1))}/>{like}</h2>
+      <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
       </p>
       <p className='col-sm-6'>
-       <h2><FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} </h2>
+       <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
        </p> 
-       </p>
+       </div>
   <button onClick = {lowToHigh}>Sort low to high</button>
   <button onClick = {highToLow}>Sort high to low</button>
     <form onSubmit={addLocation}>
       City: <input className='form-control' type='text' onChange={handleLocation}/>
       Country: <input className='form-control' type='text' onChange={handleCountry}/>
       Image: <input className='form-control' type='text' onChange={handleImg}/>
-      Must See: <input className='form-control' type='text' onChange={handleSights.toString()}/>
-      Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants.toString()}/>
+      {/* Must See: <input className='form-control' type='text' onChange={handleSights}/> */}
+      {/* Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants}/> */}
       Average Cost Per-Person: <input className='form-control' type='number' onChange={handleCost}/>
       Best Time of Year: <input className='form-control' type='text' onChange={handleTime}/>
       <input type="submit" value='Add Location'/>
@@ -244,10 +245,12 @@ const highToLow = () =>{
   {places.map((list)=>{
     return (
       <>
+      <div key={list._id}>
       <li>{list.location}, {list.country} <FaTimes  onClick={(event)=>handleNewDelete(list)}/> </li>
       <FaCheck onClick={()=>(setComplete(s=>!s))}  />
-      { (complete)?<strike>{list.location}</strike>:list.location }
+      {(complete)?<strike>{list.location}</strike>:list.location}
       
+      </div>
       </>
     )
   })}
