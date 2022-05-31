@@ -132,22 +132,19 @@ const [addForm, setAddForm] = useState(false)
 <>
 <div className='container'>
   <h1>Places</h1>
-  <div className='row'>
-      <p className='col-sm-6'>
+  <div className='likes'>
       <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
-      </p>
-      <p className='col-sm-6'>
        <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
-       </p> 
        </div>
-  <button onClick = {lowToHigh}>Sort low to high</button>
-  <button onClick = {highToLow}>Sort high to low</button>
+  <button className="btn btn-success" onClick = {lowToHigh}>Sort low to high</button>
+  <button className="btn btn-success" onClick = {highToLow}>Sort high to low</button>
 
      <h1>Top Spots</h1> 
 
      <div className='container'>
      {destination.map((spots) =>{
       return(
+        
       <div key={spots._id}>
         
         <h4>{spots.location}</h4> 
@@ -171,7 +168,7 @@ const [addForm, setAddForm] = useState(false)
         <h4>Per person / per day:{spots.costPerPerson} $</h4>
         <h4>The best time to come: {spots.bestTime}</h4>
    
-        <button onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
+        <button className="btn btn-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
        )}
       )}
@@ -179,15 +176,14 @@ const [addForm, setAddForm] = useState(false)
 </div>
 <div className='container'>
 <h2>Places I want to go</h2>
-<button onClick={()=>(setAddForm(s=>!s))}>Complete the Form</button>
+<button className="btn btn-secondary" onClick={()=>(setAddForm(s=>!s))}>Complete the Form</button>
 {addForm ? <form onSubmit={addNewList}>
 City: <input className='form-control' type='text' onChange={handleNewCity}/>
 Country: <input className='form-control' type='text' onChange={handleNewCountry}/>
-Image: <input className='form-control' type='text' onChange={handleImg}/>
 Must See: <input className='form-control' type='text' onChange={handleSights}/>
 Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants}/>
 
-      <input type="submit" value='Add Location'/>
+      <input className="btn btn-secondary" type="submit" value='Add Location'/>
     </form> : ""}
   <ol>
   {places.map((list)=>{
@@ -206,11 +202,10 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
        { updateForm? <form onSubmit={(event)=>{handleNewUpdate(event, list)}}>
       Name: <input className='form-control' type='text' defaultValue={list.location} onChange={handleNewCity}/>
       Country:<input className='form-control' type='text' defaultValue={list.country} onChange={handleNewCountry}/>
-      Image: <input className='form-control' type='text' defaultValue={list.image} onChange={handleImg}/>
       Must See: <input className='form-control' type='text' defaultValue={list.mustSee} onChange={handleSights}/>
       Top Restaurants: <input className='form-control' type="text" defaultValue={list.restaurants} onChange={handleRestaurants}/>
      
-      <input type="submit" value='Update'/>
+      <input className="btn btn-secondary" type="submit" value='Update'/>
      
     </form> : ""}
       {/* <FaCheck onClick={()=>(setComplete(s=>!s))}  />
