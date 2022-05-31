@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-import { FaCheck } from "react-icons/fa"
+import { FaTimes } from "react-icons/fa"
 import { FaHeart } from "react-icons/fa"
 import { FaHeartBroken } from "react-icons/fa"
+import { FaCheck } from "react-icons/fa"
 const App = () =>{
 
 const [location, setLocation] = useState()
@@ -14,15 +15,17 @@ const [img, setImg] = useState()
 const [restaurants, setRestaurants] = useState()
 const [time, setTime] = useState()
 const [cost, setCost] = useState()
-//______adding new list 
+const [destination, setDestination] = useState([])
+
+//______WANT TO GO LIST 
 const [newCity, setNewCity] = useState()
 const [newCountry, setNewCountry] = useState()
 const [places, setPlace] = useState([])
-//
 
-const [destination, setDestination] = useState([])
 
-//_______new city add
+
+
+//_______WANT TO GO LIST
 const handleNewCity= (event) =>{
   setNewCity(event.target.value)
 }
@@ -35,7 +38,7 @@ const addNewList = (event) =>{
     'http://localhost:3000/placestogo', {
       location: newCity,
       country: newCountry,
-     
+
     }
   ).then(() =>{
     axios.get('http://localhost:3000/placestogo').then( (response) =>{
@@ -56,6 +59,19 @@ const handleNewDelete = (newListData) =>{
 axios.get('http://localhost:3000/placestogo').then((response) =>{
 setPlace(response.data)
 })
+  })
+}
+const handleNewUpdate = (newListData) =>{
+  axios.put(`http://localhost:3000/placestogo/${newListData._id}`,
+  {
+    location: newCity,
+    country: newCountry,
+    
+  }).then(() =>{
+axios.get('http://localhost:3000/placestogo').then((response) =>{
+setPlace(response.data)
+})
+
   })
 }
 //_________________________
@@ -132,6 +148,7 @@ setDestination(response.data)
 })
   })
 }
+///__________SORTING
 const lowToHigh = () =>{
 const sort = [...destination].sort((a,b)=>{
   return a.costPerPerson > b.costPerPerson ? 1 : -1
@@ -144,32 +161,36 @@ const highToLow = () =>{
   })
    setDestination(sort)
   }
+
+ ///__________LIKES
   const [like, setLike] = useState(0)
   const [disLike, setDisLike] = useState(0)
+
+
   return (
 <>
 <div className='container'>
   <h1>Places</h1>
   <p className='row'>
       <p className='col-sm-6'>
-      <h1><FaHeart onClick={()=>(setLike(like + 1))}/>{like}</h1>
+      <h2><FaHeart onClick={()=>(setLike(like + 1))}/>{like}</h2>
       </p>
       <p className='col-sm-6'>
-       <h1><FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} </h1>
+       <h2><FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} </h2>
        </p> 
        </p>
   <button onClick = {lowToHigh}>Sort low to high</button>
   <button onClick = {highToLow}>Sort high to low</button>
-    {/* <form onSubmit={addLocation}>
+    <form onSubmit={addLocation}>
       City: <input className='form-control' type='text' onChange={handleLocation}/>
       Country: <input className='form-control' type='text' onChange={handleCountry}/>
-      Image: <input className='form-control' type='text' onChange={handleImg}/> */}
-      {/* Must See: <input className='form-control' type='text' onChange={handleSights.toString()}/>
-      Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants.toString()}/> */}
-      {/* Average Cost Per-Person: <input className='form-control' type='number' onChange={handleCost}/>
+      Image: <input className='form-control' type='text' onChange={handleImg}/>
+      Must See: <input className='form-control' type='text' onChange={handleSights.toString()}/>
+      Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants.toString()}/>
+      Average Cost Per-Person: <input className='form-control' type='number' onChange={handleCost}/>
       Best Time of Year: <input className='form-control' type='text' onChange={handleTime}/>
-      <input type="submit" value='Add Location'/> */}
-    {/* </form> */}
+      <input type="submit" value='Add Location'/>
+    </form>
      <h1>Top Spots</h1> 
 
      <div className='container'>
@@ -223,7 +244,11 @@ const highToLow = () =>{
   {places.map((list)=>{
     return (
       <>
-      <li>{list.location}, {list.country} <FaCheck  onClick={(event)=>handleNewDelete(list)}/></li>
+      <li>{list.location}, {list.country} <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
+     {/* <FaCheck/> */}
+    
+      </li>
+      
       
       
       </>
