@@ -6,7 +6,7 @@ import { FaTimes } from "react-icons/fa"
 import { FaHeart } from "react-icons/fa"
 import { FaHeartBroken } from "react-icons/fa"
 import { FaCheck } from "react-icons/fa"
-import { FaCircle} from "react-icons/fa"
+
 const App = () =>{
 
 const [location, setLocation] = useState()
@@ -260,15 +260,5 @@ const highToLow = () =>{
   
 }
 export default App;
-
-
-
-
-
-
-
-
-import logo from './logo.svg';
-import './App.css';
 
 
