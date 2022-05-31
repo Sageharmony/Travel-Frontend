@@ -54,3 +54,17 @@ img {
 div {
   margin-bottom: 70px;;
 }
+a {
+  text-decoration: none !important;
+  color: black !important;
+
+}
+
+a:hover{
+  text-decoration: underline !important;
+}
+
+li{
+  list-style-type: circle !important;
+  font-size: 20px;
+}
