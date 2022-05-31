@@ -6,14 +6,12 @@ import { FaTimes } from "react-icons/fa"
 import { FaHeart } from "react-icons/fa"
 import { FaHeartBroken } from "react-icons/fa"
 import { FaCheck } from "react-icons/fa"
-import { FaCircle} from "react-icons/fa"
+import { FaEdit } from "react-icons/fa"
 const App = () =>{
 
 const [location, setLocation] = useState()
 const [country, setCountry] = useState()
-const [sights, setSights] = useState({})
-const [img, setImg] = useState()
-const [restaurants, setRestaurants] = useState({})
+
 const [time, setTime] = useState()
 const [cost, setCost] = useState()
 const [destination, setDestination] = useState([])
@@ -21,10 +19,11 @@ const [destination, setDestination] = useState([])
 //______WANT TO GO LIST 
 const [newCity, setNewCity] = useState()
 const [newCountry, setNewCountry] = useState()
-const [places, setPlace] = useState([])
+const [img, setImg] = useState()
+const [sights, setSights] = useState()
+const [restaurants, setRestaurants] = useState()
 const[complete, setComplete] = useState(false)
-
-
+const [places, setPlace] = useState([])
 
 //_______WANT TO GO LIST
 const handleNewCity= (event) =>{
@@ -33,12 +32,24 @@ const handleNewCity= (event) =>{
 const handleNewCountry= (event) =>{
   setNewCountry(event.target.value)
 }
+const handleSights = (event) =>{
+  setSights(event.target.value)
+}
+const handleImg = (event) =>{
+  setImg(event.target.value)
+}
+const handleRestaurants = (event) =>{
+  setRestaurants(event.target.value)
+}
 const addNewList = (event) =>{
   event.preventDefault()
   axios.post(
     'http://localhost:3000/placestogo', {
       location: newCity,
       country: newCountry,
+      image: img,
+      mustSee: sights,
+      restaurants: restaurants,
       isComplete: complete
     }
   ).then(() =>{
@@ -62,11 +73,15 @@ setPlace(response.data)
 })
   })
 }
-const handleNewUpdate = (newListData) =>{
+const handleNewUpdate = (event, newListData) =>{
+  event.preventDefault();
   axios.put(`http://localhost:3000/placestogo/${newListData._id}`,
   {
     location: newCity,
     country: newCountry,
+    image: img,
+    mustSee: sights,
+    restaurants: restaurants,
     isComplete: complete
   }).then(() =>{
 axios.get('http://localhost:3000/placestogo').then((response) =>{
@@ -75,64 +90,7 @@ setPlace(response.data)
 
   })
 }
-//_________________________
-const handleLocation = (event) =>{
-  setLocation(event.target.value)
-}
-const handleCountry = (event) =>{
-  setCountry(event.target.value)
-}
-const handleSights = (event) =>{
-  setSights(event.target.value)
-}
-const handleImg = (event) =>{
-  setImg(event.target.value)
-}
-const handleRestaurants = (event) =>{
-  setRestaurants(event.target.value)
-}
-const handleTime = (event) =>{
-  setTime(event.target.value)
-}
-const handleCost = (event) =>{
-  setCost(event.target.value)
-}
 
-const addLocation = (event) =>{
-  event.preventDefault()
-  axios.post(
-    'http://localhost:3000/', {
-      location: location,
-      country: country,
-      mustSee: sights,
-      image: img,
-      restaurantsToTry: restaurants,
-      bestTime: time,
-      costPerPerson: cost  
-    }
-  ).then(() =>{
-    axios.get('http://localhost:3000/').then( (response) =>{
- 
-      setDestination(response.data)
-    })
-  })
-}
-const handleLocationUpdate = (event, locationData) =>{
-  event.preventDefault();
-  axios.put(`http://localhost:3000/${locationData._id}`,
-    {
-    location: location,
-    mustSee: sights,
-    image: img,
-    restaurantsToTry: restaurants,
-    bestTime: time,
-    costPerPerson: cost
-  }).then(() =>{
-    axios.get('http://localhost:3000/').then((response) =>{
-      setDestination(response.data)
-    })
-  })
-}
 useEffect(()=>{
   axios
       .get('http://localhost:3000/')
@@ -167,36 +125,26 @@ const highToLow = () =>{
   const [like, setLike] = useState(0)
   const [disLike, setDisLike] = useState(0)
 
-
+//_____TOGGLE FORM
+const [updateForm, setUpdateForm] = useState(false)
+const [addForm, setAddForm] = useState(false)
   return (
 <>
 <div className='container'>
   <h1>Places</h1>
-  <div className='row'>
-      <p className='col-sm-6'>
+  <div className='likes'>
       <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
-      </p>
-      <p className='col-sm-6'>
        <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
-       </p> 
        </div>
-  <button onClick = {lowToHigh}>Sort low to high</button>
-  <button onClick = {highToLow}>Sort high to low</button>
-    <form onSubmit={addLocation}>
-      City: <input className='form-control' type='text' onChange={handleLocation}/>
-      Country: <input className='form-control' type='text' onChange={handleCountry}/>
-      Image: <input className='form-control' type='text' onChange={handleImg}/>
-      {/* Must See: <input className='form-control' type='text' onChange={handleSights}/> */}
-      {/* Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants}/> */}
-      Average Cost Per-Person: <input className='form-control' type='number' onChange={handleCost}/>
-      Best Time of Year: <input className='form-control' type='text' onChange={handleTime}/>
-      <input type="submit" value='Add Location'/>
-    </form>
+  <button className="btn btn-success" onClick = {lowToHigh}>Sort low to high</button>
+  <button className="btn btn-success" onClick = {highToLow}>Sort high to low</button>
+
      <h1>Top Spots</h1> 
 
      <div className='container'>
      {destination.map((spots) =>{
       return(
+        
       <div key={spots._id}>
         
         <h4>{spots.location}</h4> 
@@ -219,16 +167,8 @@ const highToLow = () =>{
         </ul>
         <h4>Per person / per day:{spots.costPerPerson} $</h4>
         <h4>The best time to come: {spots.bestTime}</h4>
-        {/* <form onSubmit={(event)=>{handleLocationUpdate(event, spots)}}>
-      Name: <input className='form-control' type='text' defaultValue={spots.location} onChange={handleLocation}/>
-      Image: <input className='form-control' type='text' defaultValue={spots.image} onChange={handleImg}/>
-      Must See: <input className='form-control' type='text' defaultValue={spots.mustSee} onChange={handleSights}/>
-      Top Restaurants: <input className='form-control' type="text" defaultValue={spots.restaurantsToTry} onChange={handleRestaurants}/>
-      Average Cost Per-Person: <input className='form-control' type='number' defaultValue={spots.costPerPerson} onChange={handleCost}/>
-      Best Time of Year: <input className='form-control' type='text' defaultValue={spots.bestTime} onChange={handleTime}/>
-      <input type="submit" value='Update'/>
-    </form> */}
-        <button onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
+   
+        <button className="btn btn-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
        )}
       )}
@@ -236,19 +176,40 @@ const highToLow = () =>{
 </div>
 <div className='container'>
 <h2>Places I want to go</h2>
-  <form onSubmit={addNewList}>
-  <label>City: <input className='form-control' type='text' onChange={handleNewCity}/></label>
-  <label>Country: <input className='form-control'  type='text' onChange={handleNewCountry}/></label>
-  <input type="submit" value='Add Location'/>
-  </form>
+<button className="btn btn-secondary" onClick={()=>(setAddForm(s=>!s))}>Complete the Form</button>
+{addForm ? <form onSubmit={addNewList}>
+City: <input className='form-control' type='text' onChange={handleNewCity}/>
+Country: <input className='form-control' type='text' onChange={handleNewCountry}/>
+Must See: <input className='form-control' type='text' onChange={handleSights}/>
+Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants}/>
+
+      <input className="btn btn-secondary" type="submit" value='Add Location'/>
+    </form> : ""}
   <ol>
   {places.map((list)=>{
     return (
       <>
       <div key={list._id}>
-      <li>{list.location}, {list.country} <FaTimes  onClick={(event)=>handleNewDelete(list)}/> </li>
-      <FaCheck onClick={()=>(setComplete(s=>!s))}  />
-      {(complete)?<strike>{list.location}</strike>:list.location}
+      <li>{list.location}, {list.country}</li>
+     
+      <h4><FaEdit onClick={()=> (setUpdateForm(s=>!s))}/></h4> 
+      <h4><FaTimes  onClick={(event)=>handleNewDelete(list)}/></h4>
+     
+      <img className='img-thumbnail' src={list.image}/>
+      <li>Restaurants I want to eat at: {list.restaurants}</li>
+      <li>Must See Places: {list.mustSee}</li>
+  
+       { updateForm? <form onSubmit={(event)=>{handleNewUpdate(event, list)}}>
+      Name: <input className='form-control' type='text' defaultValue={list.location} onChange={handleNewCity}/>
+      Country:<input className='form-control' type='text' defaultValue={list.country} onChange={handleNewCountry}/>
+      Must See: <input className='form-control' type='text' defaultValue={list.mustSee} onChange={handleSights}/>
+      Top Restaurants: <input className='form-control' type="text" defaultValue={list.restaurants} onChange={handleRestaurants}/>
+     
+      <input className="btn btn-secondary" type="submit" value='Update'/>
+     
+    </form> : ""}
+      {/* <FaCheck onClick={()=>(setComplete(s=>!s))}  />
+      {(complete)?<strike>{list.location}</strike>:list.location} */}
       
       </div>
       </>
@@ -260,11 +221,5 @@ const highToLow = () =>{
   
 }
 export default App;
-
-
-
-
-
-
 
 

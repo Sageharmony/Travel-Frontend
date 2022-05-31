@@ -68,3 +68,13 @@ li{
   list-style-type: circle !important;
   font-size: 20px;
 }
+.img-thumbnail{
+  width: 500px;
+}
+.btn-success{
+  margin: 20px !important;
+}
+.likes{
+  margin: 20px;
+  border: 30px;
+}
