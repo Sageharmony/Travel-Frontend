@@ -21,7 +21,7 @@ const [destination, setDestination] = useState([])
 const [newCity, setNewCity] = useState()
 const [newCountry, setNewCountry] = useState()
 const [places, setPlace] = useState([])
-
+const[complete, setComplete] = useState(false)
 
 
 
@@ -38,7 +38,7 @@ const addNewList = (event) =>{
     'http://localhost:3000/placestogo', {
       location: newCity,
       country: newCountry,
-
+      isComplete: complete
     }
   ).then(() =>{
     axios.get('http://localhost:3000/placestogo').then( (response) =>{
@@ -66,7 +66,7 @@ const handleNewUpdate = (newListData) =>{
   {
     location: newCity,
     country: newCountry,
-    
+    isComplete: complete
   }).then(() =>{
 axios.get('http://localhost:3000/placestogo').then((response) =>{
 setPlace(response.data)
@@ -244,12 +244,9 @@ const highToLow = () =>{
   {places.map((list)=>{
     return (
       <>
-      <li>{list.location}, {list.country} <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
-     {/* <FaCheck/> */}
-    
-      </li>
-      
-      
+      <li>{list.location}, {list.country} <FaTimes  onClick={(event)=>handleNewDelete(list)}/> </li>
+      <FaCheck onClick={()=>(setComplete(s=>!s))}  />
+      { (complete)?<strike>{list.location}</strike>:list.location }
       
       </>
     )
