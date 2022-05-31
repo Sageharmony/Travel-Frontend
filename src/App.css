@@ -36,6 +36,7 @@
     transform: rotate(360deg);
   }
 }
+<<<<<<< HEAD
 
 img {
 
@@ -68,3 +69,5 @@ li{
   list-style-type: circle !important;
   font-size: 20px;
 }
+=======
+>>>>>>> eb5ef61 (Initialize project using Create React App)
