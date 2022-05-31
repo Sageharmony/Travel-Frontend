@@ -1,3 +1,7 @@
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 .App {
   text-align: center;
 }
@@ -36,3 +40,31 @@
     transform: rotate(360deg);
   }
 }
+
+img {
+
+  width: 100vw;
+}
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+div {
+  margin-bottom: 150px;;
+}
+
+/* .navbar{
+  height: 4em;
+  padding: .2em;
+}
+.container-fluid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
