@@ -68,3 +68,6 @@ li{
   list-style-type: circle !important;
   font-size: 20px;
 }
+.img-thumbnail{
+  width: 500px;
+}
