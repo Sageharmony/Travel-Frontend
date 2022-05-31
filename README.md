@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # Getting Started with Create React App
 
@@ -83,9 +84,13 @@ Frontend for Project 3
 Frontend for Project 3
 >>>>>>> 85c3e00 (Initial commit)
 =======
+=======
+>>>>>>> 075ec13 (gits)
 # Travel-Frontend
 Frontend for Project 3
 =======
+=======
+>>>>>>> 663152f (new)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -156,5 +161,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<<<<<<< HEAD
 >>>>>>> 8cf05b5 (Initialize project using Create React App)
+<<<<<<< HEAD
 >>>>>>> eb5ef61 (Initialize project using Create React App)
+=======
+=======
+=======
+# Travel-Frontend
+Frontend for Project 3
+>>>>>>> 85c3e00 (Initial commit)
+>>>>>>> 663152f (new)
+>>>>>>> 075ec13 (gits)
