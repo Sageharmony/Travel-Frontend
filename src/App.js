@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-
-
+import { FaCheck } from "react-icons/fa"
+import { FaHeart } from "react-icons/fa"
+import { FaHeartBroken } from "react-icons/fa"
 const App = () =>{
 
 const [location, setLocation] = useState()
@@ -143,11 +144,20 @@ const highToLow = () =>{
   })
    setDestination(sort)
   }
+  const [like, setLike] = useState(0)
+  const [disLike, setDisLike] = useState(0)
   return (
 <>
 <div className='container'>
   <h1>Places</h1>
-
+  <p className='row'>
+      <p className='col-sm-6'>
+      <h1><FaHeart onClick={()=>(setLike(like + 1))}/>{like}</h1>
+      </p>
+      <p className='col-sm-6'>
+       <h1><FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} </h1>
+       </p> 
+       </p>
   <button onClick = {lowToHigh}>Sort low to high</button>
   <button onClick = {highToLow}>Sort high to low</button>
     {/* <form onSubmit={addLocation}>
@@ -167,7 +177,9 @@ const highToLow = () =>{
       return(
       <div key={spots._id}>
         
-        <h4>{spots.location}</h4>
+        <h4>{spots.location}</h4> 
+      
+      
         <img className='img-fluid' src={spots.image}/>
         <h4> Things to Do: </h4>
         <ul>
@@ -211,8 +223,9 @@ const highToLow = () =>{
   {places.map((list)=>{
     return (
       <>
-      <li>{list.location}, {list.country} </li>
-      <button onClick={(event)=>handleNewDelete(list)}>Delete</button>
+      <li>{list.location}, {list.country} <FaCheck  onClick={(event)=>handleNewDelete(list)}/></li>
+      
+      
       </>
     )
   })}
