@@ -53,11 +53,11 @@ const addNewList = (event) =>{
       image: img,
       mustSee: sights,
       restaurants: restaurants,
-      isComplete: complete
+  
     }
   ).then(() =>{
     axios.get('https://travelblogbackend.herokuapp.com/placestogo').then( (response) =>{
- 
+      console.log(response.data)
       setPlace(response.data)
     })
   })
@@ -72,6 +72,7 @@ useEffect(()=>{
 const handleNewDelete = (newListData) =>{
   axios.delete(`https://travelblogbackend.herokuapp.com/placestogo/${newListData._id}`).then(() =>{
 axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
+
 setPlace(response.data)
 })
   })
@@ -85,7 +86,7 @@ const handleNewUpdate = (event, newListData) =>{
     image: img,
     mustSee: sights,
     restaurants: restaurants,
-    isComplete: complete
+
   }).then(() =>{
 axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
 setPlace(response.data)
@@ -135,8 +136,7 @@ const form =() =>{
   setAddForm(!addForm)
   setToggle(false)
 }
-
-const updateFormToggle =(response)=>{
+const updateFormToggle =()=>{
 
   setUpdateForm(!updateForm)
 
@@ -147,6 +147,7 @@ const info = ()=>{
   setToggle(!toggle)
   setAddForm(false)
 }
+
 
   return (
 <>
@@ -284,7 +285,7 @@ const info = ()=>{
       
        )}
       ) }
-<FaArrowUp/> <h5 onClick={()=>(window.scrollTo(0,0))} style={{cursor: "pointer"}} >Back to the top</h5> 
+<FaArrowUp/><h5 onClick={()=>(window.scrollTo(0,0))} style={{cursor: "pointer"}} >Back to the top</h5> 
       </>
       : "" }
 
@@ -304,22 +305,24 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
       <input className="btn btn-secondary" type="submit" value='Add Location'/>
     </form> 
     <ol>
+   
   {places.map((list)=>{
     return (
       <>
+       
       <div key={list._id}>
-      {complete ? 
-     <strike>  <li><h3>{list.location}, {list.country}</h3>
-     </li>
-      </strike>: <li><h3>{list.location}, {list.country}</h3></li>
-      }
-      <FaEdit onClick={updateFormToggle}/>
+    
+     
+     <li><h3 >{list.location}, {list.country}</h3></li>
+      <FaEdit  onClick={updateFormToggle}/>
       <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
-      <FaCheck onClick={()=>(setComplete(s=>!s))}  />
+    
       <ul>
       <li>Restaurants: {list.restaurants}</li>
       <li>Must See Places: {list.mustSee}</li>
+
       </ul>
+    
        { updateForm? <form onSubmit={(event)=>{handleNewUpdate(event, list)}}>
       Name: <input className='form-control' type='text' defaultValue={list.location} onChange={handleNewCity}/>
       Country:<input className='form-control' type='text' defaultValue={list.country} onChange={handleNewCountry}/>
@@ -329,7 +332,7 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
       <input className="btn btn-secondary" type="submit" value='Update'/>
      
     </form> : ""}
-    
+  
       
       </div>
       </>
