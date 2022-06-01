@@ -14,7 +14,7 @@ import Form from 'react-bootstrap/Form'
 
 
 const App = () =>{
-
+const [destination, setDestination] = useState([])
 const [location, setLocation] = useState()
 const [country, setCountry] = useState()
 const [sights, setSights] = useState()
@@ -26,10 +26,8 @@ const [cost, setCost] = useState()
 const [newCity, setNewCity] = useState()
 const [newCountry, setNewCountry] = useState()
 const [places, setPlace] = useState([])
+const [toggle, setToggle] = useState(false)
 //
-const [destination, setDestination] = useState([])
-
-
 
 //_______new city add
 const handleNewCity= (event) =>{
@@ -153,7 +151,12 @@ const highToLow = () =>{
   })
    setDestination(sort)
   }
-  // --- google maps 
+  // --- toggle information 
+
+const info = ()=>{
+  setToggle(!toggle)
+}
+
 
   return (
 <>
@@ -251,29 +254,32 @@ const highToLow = () =>{
      <h1>Top Spots</h1> 
 
      <div className='container'>
-     {destination.map((spots) =>{
+       <button onClick={toggle} >
+       {toggle ? 
+     destination.map((spots) =>{
       return(
       <div key={spots._id}>
-        
+        <div className="info">
         <h4>{spots.location}</h4>
-        <img className='img-fluid' src={spots.image}/>
+        <img src={spots.image}/>
         <h4> Things to Do: </h4>
-        {/* <ul>
-        <li><a href={spots.mustSee[0].link} target="_blank" rel="noreferrer">{spots.mustSee[0].name}</a></li>
-        <li><a href={spots.mustSee[1].link} target="_blank" rel="noreferrer">{spots.mustSee[1].name}</a></li>
-        <li><a href={spots.mustSee[2].link} target="_blank" rel="noreferrer">{spots.mustSee[2].name}</a></li>
-        <li><a href={spots.mustSee[3].link} target="_blank" rel="noreferrer">{spots.mustSee[3].name}</a></li>
-        </ul> */}
+        <ul>
+        <li>{spots.mustSee[0]}</li>
+        <li>{spots.mustSee[1]}</li>
+        <li>{spots.mustSee[2]}</li>
+        <li>{spots.mustSee[3]}</li>
+        </ul>
         <h4>Restaurants to try: </h4>
-        {/* <ul>
-        <li><a href={spots.restaurantsToTry[0].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[0].name}</a></li>
-        <li><a href={spots.restaurantsToTry[1].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[1].name}</a></li>
-        <li><a href={spots.restaurantsToTry[2].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[2].name}</a></li>
-        <li><a href={spots.restaurantsToTry[3].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[3].name}</a></li>
-        </ul> */}
-        <h4>Per person / per day:{spots.costPerPerson} $</h4>
+        <ul>
+        <li>{spots.restaurantsToTry[0]}</li>
+        <li>{spots.restaurantsToTry[1]}</li>
+        <li>{spots.restaurantsToTry[2]}</li>
+        <li>{spots.restaurantsToTry[3]}</li>
+        </ul>
+        <h4>Average cost PPPD  :{spots.costPerPerson} $</h4>
         <h4>The best time to come: {spots.bestTime}</h4>
-        {/* <form onSubmit={(event)=>{handleLocationUpdate(event, spots)}}>
+          </div>
+        <form onSubmit={(event)=>{handleLocationUpdate(event, spots)}}>
       Name: <input className='form-control' type='text' defaultValue={spots.location} onChange={handleLocation}/>
       Image: <input className='form-control' type='text' defaultValue={spots.image} onChange={handleImg}/>
       Must See: <input className='form-control' type='text' defaultValue={spots.mustSee} onChange={handleSights}/>
@@ -281,11 +287,12 @@ const highToLow = () =>{
       Average Cost Per-Person: <input className='form-control' type='number' defaultValue={spots.costPerPerson} onChange={handleCost}/>
       Best Time of Year: <input className='form-control' type='text' defaultValue={spots.bestTime} onChange={handleTime}/>
       <input type="submit" value='Update'/>
-    </form> */}
+    </form> 
         <button onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
        )}
-      )}
+      ) : '' } See this Listing
+      </button>
 </div>
 </div>
 <div className='container'>
