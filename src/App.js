@@ -239,9 +239,10 @@ const info = ()=>{
    
 
      { toggle ?
-    
-     
-     destination.map((spots) =>{
+    <>
+    <button className="btn btn-success" onClick = {lowToHigh}>Sort low to high</button>
+    <button className="btn btn-success" onClick = {highToLow}>Sort high to low</button>
+     {destination.map((spots) =>{
       return(
         
       <div key={spots._id}>
@@ -271,7 +272,9 @@ const info = ()=>{
         <button className="btn btn-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
        )}
-      ) : "" }
+      ) }
+      </>
+      : "" }
 </div>
 
 <div className='container'>
