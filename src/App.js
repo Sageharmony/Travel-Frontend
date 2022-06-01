@@ -44,7 +44,7 @@ const handleRestaurants = (event) =>{
 const addNewList = (event) =>{
   event.preventDefault()
   axios.post(
-    'http://localhost:3000/placestogo', {
+    'https://travelblogbackend.herokuapp.com/placestogo', {
       location: newCity,
       country: newCountry,
       image: img,
@@ -53,7 +53,7 @@ const addNewList = (event) =>{
       isComplete: complete
     }
   ).then(() =>{
-    axios.get('http://localhost:3000/placestogo').then( (response) =>{
+    axios.get('https://travelblogbackend.herokuapp.com/placestogo').then( (response) =>{
  
       setPlace(response.data)
     })
@@ -61,21 +61,21 @@ const addNewList = (event) =>{
 }
 useEffect(()=>{
   axios
-      .get('http://localhost:3000/placestogo')
+      .get('https://travelblogbackend.herokuapp.com/placestogo')
       .then((response)=>{
         setPlace(response.data);
       })
 },[])
 const handleNewDelete = (newListData) =>{
-  axios.delete(`http://localhost:3000/placestogo/${newListData._id}`).then(() =>{
-axios.get('http://localhost:3000/placestogo').then((response) =>{
+  axios.delete(`https://travelblogbackend.herokuapp.com/placestogo/${newListData._id}`).then(() =>{
+axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
 setPlace(response.data)
 })
   })
 }
 const handleNewUpdate = (event, newListData) =>{
   event.preventDefault();
-  axios.put(`http://localhost:3000/placestogo/${newListData._id}`,
+  axios.put(`https://travelblogbackend.herokuapp.com/placestogo/${newListData._id}`,
   {
     location: newCity,
     country: newCountry,
@@ -84,7 +84,7 @@ const handleNewUpdate = (event, newListData) =>{
     restaurants: restaurants,
     isComplete: complete
   }).then(() =>{
-axios.get('http://localhost:3000/placestogo').then((response) =>{
+axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
 setPlace(response.data)
 })
 
@@ -93,7 +93,7 @@ setPlace(response.data)
 
 useEffect(()=>{
   axios
-      .get('http://localhost:3000/')
+      .get('https://travelblogbackend.herokuapp.com/')
       .then((response)=>{
         setDestination(response.data);
       })
@@ -102,7 +102,7 @@ useEffect(()=>{
 
 const handleLocationDelete = (locationData) =>{
   axios.delete(`/${locationData._id}`).then(() =>{
-axios.get('http://localhost:3000/').then((response) =>{
+axios.get('https://travelblogbackend.herokuapp.com/').then((response) =>{
 setDestination(response.data)
 })
   })
