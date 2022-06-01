@@ -72,9 +72,14 @@ li{
   width: 500px;
 }
 .btn-success{
-  margin: 20px !important;
+  margin-left: 20px !important;
+  margin-bottom: 20px !important;
+  float: right
 }
 .likes{
-  margin: 20px;
+
   border: 30px;
+}
+#car{
+  height: 80vh !important;
 }
