@@ -78,3 +78,6 @@ li{
   margin: 20px;
   border: 30px;
 }
+#car{
+  height: 80vh !important;
+}
