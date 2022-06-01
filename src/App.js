@@ -223,11 +223,11 @@ const [addForm, setAddForm] = useState(false)
       </Carousel>
     </div>
 
-
+    <div className='container'>
      <h1>Top Spots</h1> 
      <button className="btn btn-success" onClick = {lowToHigh}>Sort low to high</button>
      <button className="btn btn-success" onClick = {highToLow}>Sort high to low</button>
-     <div className='container'>
+     
      {destination.map((spots) =>{
       return(
         
