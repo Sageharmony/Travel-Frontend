@@ -44,7 +44,7 @@ const handleRestaurants = (event) =>{
 const addNewList = (event) =>{
   event.preventDefault()
   axios.post(
-    '/placestogo', {
+    'http://localhost:3000/placestogo', {
       location: newCity,
       country: newCountry,
       image: img,
@@ -53,7 +53,7 @@ const addNewList = (event) =>{
       isComplete: complete
     }
   ).then(() =>{
-    axios.get('/placestogo').then( (response) =>{
+    axios.get('http://localhost:3000/placestogo').then( (response) =>{
  
       setPlace(response.data)
     })
@@ -61,21 +61,21 @@ const addNewList = (event) =>{
 }
 useEffect(()=>{
   axios
-      .get('/placestogo')
+      .get('http://localhost:3000/placestogo')
       .then((response)=>{
         setPlace(response.data);
       })
 },[])
 const handleNewDelete = (newListData) =>{
-  axios.delete(`/placestogo/${newListData._id}`).then(() =>{
-axios.get('/placestogo').then((response) =>{
+  axios.delete(`http://localhost:3000/placestogo/${newListData._id}`).then(() =>{
+axios.get('http://localhost:3000/placestogo').then((response) =>{
 setPlace(response.data)
 })
   })
 }
 const handleNewUpdate = (event, newListData) =>{
   event.preventDefault();
-  axios.put(`/placestogo/${newListData._id}`,
+  axios.put(`http://localhost:3000/placestogo/${newListData._id}`,
   {
     location: newCity,
     country: newCountry,
@@ -84,7 +84,7 @@ const handleNewUpdate = (event, newListData) =>{
     restaurants: restaurants,
     isComplete: complete
   }).then(() =>{
-axios.get('/placestogo').then((response) =>{
+axios.get('http://localhost:3000/placestogo').then((response) =>{
 setPlace(response.data)
 })
 
@@ -93,7 +93,7 @@ setPlace(response.data)
 
 useEffect(()=>{
   axios
-      .get('/')
+      .get('http://localhost:3000/')
       .then((response)=>{
         setDestination(response.data);
       })
@@ -102,7 +102,7 @@ useEffect(()=>{
 
 const handleLocationDelete = (locationData) =>{
   axios.delete(`/${locationData._id}`).then(() =>{
-axios.get('/').then((response) =>{
+axios.get('http://localhost:3000/').then((response) =>{
 setDestination(response.data)
 })
   })
