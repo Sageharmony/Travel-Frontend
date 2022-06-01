@@ -7,7 +7,9 @@ import { FaHeart } from "react-icons/fa"
 import { FaHeartBroken } from "react-icons/fa"
 import { FaCheck } from "react-icons/fa"
 import { FaEdit } from "react-icons/fa"
+import { FaArrowUp } from "react-icons/fa"
 import Carousel from 'react-bootstrap/Carousel'
+
 const App = () =>{
 
 const [location, setLocation] = useState()
@@ -131,11 +133,19 @@ const [updateForm, setUpdateForm] = useState(false)
 const [addForm, setAddForm] = useState(false)
 const form =() =>{
   setAddForm(!addForm)
+  setToggle(false)
 }
-//______
+
+const updateFormToggle =(response)=>{
+
+  setUpdateForm(!updateForm)
+
+}
+//______TOGGLE FOR MAIN CHUNK OF INFO
 const [toggle, setToggle] = useState(false)
 const info = ()=>{
   setToggle(!toggle)
+  setAddForm(false)
 }
 
   return (
@@ -271,10 +281,13 @@ const info = ()=>{
    
         <button className="btn btn-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
+      
        )}
       ) }
+<FaArrowUp/> <h5 onClick={()=>(window.scrollTo(0,0))} style={{cursor: "pointer"}} >Back to the top</h5> 
       </>
       : "" }
+
 </div>
 
 <div className='container'>
@@ -295,16 +308,14 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
     return (
       <>
       <div key={list._id}>
-      {complete ?
+      {complete ? 
      <strike>  <li><h3>{list.location}, {list.country}</h3>
-      <FaEdit onClick={()=> (setUpdateForm(s=>!s))}/>
-      <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
-      <FaCheck onClick={()=>(setComplete(s=>!s))}  /></li>
-      </strike>: <li><h3>{list.location}, {list.country}</h3>
-      <FaEdit onClick={()=> (setUpdateForm(s=>!s))}/>
-      <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
-      <FaCheck onClick={()=>(setComplete(s=>!s))}  /></li>
+     </li>
+      </strike>: <li><h3>{list.location}, {list.country}</h3></li>
       }
+      <FaEdit onClick={updateFormToggle}/>
+      <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
+      <FaCheck onClick={()=>(setComplete(s=>!s))}  />
       <ul>
       <li>Restaurants: {list.restaurants}</li>
       <li>Must See Places: {list.mustSee}</li>
@@ -325,8 +336,10 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
     )
   })}
   </ol>
+  <FaArrowUp/> <h5 onClick={()=>(window.scrollTo(0,0))} style={{cursor: "pointer"}} >Back to the top</h5> 
   </>
   : ""}
+
 </div>
      </>) 
   
