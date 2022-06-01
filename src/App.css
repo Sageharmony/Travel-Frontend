@@ -65,7 +65,7 @@ a:hover{
 }
 
 li{
-  list-style-type: circle !important;
+  /* list-style-type: circle !important; */
   font-size: 20px;
 }
 .img-thumbnail{
@@ -82,4 +82,10 @@ li{
 }
 #car{
   height: 80vh !important;
+}
+.btn-light{
+  width: 100vw !important;
+  text-align: center;
+  border: 1px solid rgb(58, 55, 55) !important;
+  margin-bottom: 10px;;
 }

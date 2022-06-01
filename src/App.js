@@ -7,7 +7,9 @@ import { FaHeart } from "react-icons/fa"
 import { FaHeartBroken } from "react-icons/fa"
 import { FaCheck } from "react-icons/fa"
 import { FaEdit } from "react-icons/fa"
+import { FaArrowUp } from "react-icons/fa"
 import Carousel from 'react-bootstrap/Carousel'
+
 const App = () =>{
 
 const [location, setLocation] = useState()
@@ -51,11 +53,11 @@ const addNewList = (event) =>{
       image: img,
       mustSee: sights,
       restaurants: restaurants,
-      isComplete: complete
+  
     }
   ).then(() =>{
     axios.get('https://travelblogbackend.herokuapp.com/placestogo').then( (response) =>{
- 
+      console.log(response.data)
       setPlace(response.data)
     })
   })
@@ -70,6 +72,7 @@ useEffect(()=>{
 const handleNewDelete = (newListData) =>{
   axios.delete(`https://travelblogbackend.herokuapp.com/placestogo/${newListData._id}`).then(() =>{
 axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
+
 setPlace(response.data)
 })
   })
@@ -83,7 +86,7 @@ const handleNewUpdate = (event, newListData) =>{
     image: img,
     mustSee: sights,
     restaurants: restaurants,
-    isComplete: complete
+
   }).then(() =>{
 axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
 setPlace(response.data)
@@ -129,10 +132,28 @@ const highToLow = () =>{
 //_____TOGGLE FORM
 const [updateForm, setUpdateForm] = useState(false)
 const [addForm, setAddForm] = useState(false)
+const form =() =>{
+  setAddForm(!addForm)
+  setToggle(false)
+}
+const updateFormToggle =()=>{
+
+  setUpdateForm(!updateForm)
+
+}
+//______TOGGLE FOR MAIN CHUNK OF INFO
+const [toggle, setToggle] = useState(false)
+const info = ()=>{
+  setToggle(!toggle)
+  setAddForm(false)
+}
+
+
   return (
 <>
 <div className='container'>
   <h1>Places</h1>
+  
   <div className='likes'>
       <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
        <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
@@ -222,12 +243,16 @@ const [addForm, setAddForm] = useState(false)
         </Carousel.Item>
       </Carousel>
     </div>
-
+  
+    <button className="btn btn-light" onClick={info} ><h1>Explore </h1> </button>
+    <button className="btn btn-light" onClick={form}><h2>Bucket List</h2></button>
     <div className='container'>
-     <h1>Top Spots</h1> 
-     <button className="btn btn-success" onClick = {lowToHigh}>Sort low to high</button>
-     <button className="btn btn-success" onClick = {highToLow}>Sort high to low</button>
-     
+   
+
+     { toggle ?
+    <>
+    <button className="btn btn-success" onClick = {lowToHigh}>Sort low to high</button>
+    <button className="btn btn-success" onClick = {highToLow}>Sort high to low</button>
      {destination.map((spots) =>{
       return(
         
@@ -257,35 +282,47 @@ const [addForm, setAddForm] = useState(false)
    
         <button className="btn btn-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
+      
        )}
-      )}
+      ) }
+<FaArrowUp/><h5 onClick={()=>(window.scrollTo(0,0))} style={{cursor: "pointer"}} >Back to the top</h5> 
+      </>
+      : "" }
+
 </div>
 
 <div className='container'>
-<h2>Places I want to go</h2>
-<button className="btn btn-secondary" onClick={()=>(setAddForm(s=>!s))}>Complete the Form</button>
-{addForm ? <form onSubmit={addNewList}>
+
+
+{addForm ? 
+<>
+<form onSubmit={addNewList}>
 City: <input className='form-control' type='text' onChange={handleNewCity}/>
 Country: <input className='form-control' type='text' onChange={handleNewCountry}/>
 Must See: <input className='form-control' type='text' onChange={handleSights}/>
 Top Restaurants: <input className='form-control' type="text" onChange={handleRestaurants}/>
 
       <input className="btn btn-secondary" type="submit" value='Add Location'/>
-    </form> : ""}
-  <ol>
+    </form> 
+    <ol>
+   
   {places.map((list)=>{
     return (
       <>
+       
       <div key={list._id}>
-      <li>{list.location}, {list.country}</li>
+    
      
-      <h4><FaEdit onClick={()=> (setUpdateForm(s=>!s))}/></h4> 
-      <h4><FaTimes  onClick={(event)=>handleNewDelete(list)}/></h4>
-     
-      <img className='img-thumbnail' src={list.image}/>
-      <li>Restaurants I want to eat at: {list.restaurants}</li>
+     <li><h3 >{list.location}, {list.country}</h3></li>
+      <FaEdit  onClick={updateFormToggle}/>
+      <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
+    
+      <ul>
+      <li>Restaurants: {list.restaurants}</li>
       <li>Must See Places: {list.mustSee}</li>
-  
+
+      </ul>
+    
        { updateForm? <form onSubmit={(event)=>{handleNewUpdate(event, list)}}>
       Name: <input className='form-control' type='text' defaultValue={list.location} onChange={handleNewCity}/>
       Country:<input className='form-control' type='text' defaultValue={list.country} onChange={handleNewCountry}/>
@@ -295,14 +332,17 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
       <input className="btn btn-secondary" type="submit" value='Update'/>
      
     </form> : ""}
-      {/* <FaCheck onClick={()=>(setComplete(s=>!s))}  />
-      {(complete)?<strike>{list.location}</strike>:list.location} */}
+  
       
       </div>
       </>
     )
   })}
-</ol>
+  </ol>
+  <FaArrowUp/> <h5 onClick={()=>(window.scrollTo(0,0))} style={{cursor: "pointer"}} >Back to the top</h5> 
+  </>
+  : ""}
+
 </div>
      </>) 
   
