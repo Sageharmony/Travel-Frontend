@@ -348,9 +348,9 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
   : ""}
 
 </div>
-{/* 
-  <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}></GoogleMap> */}
-
+<LoadScript googleMapsApiKey = {process.env.REACT_APP_GOOGLE}> 
+  <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}></GoogleMap>
+ </LoadScript>
      </>) 
   
 }
