@@ -27,7 +27,10 @@ const [newCity, setNewCity] = useState()
 const [newCountry, setNewCountry] = useState()
 const [places, setPlace] = useState([])
 const [toggle, setToggle] = useState(false)
-//
+const [query, setQuery] = useState("")
+
+
+
 
 //_______new city add
 const handleNewCity= (event) =>{
@@ -157,45 +160,75 @@ const info = ()=>{
   setToggle(!toggle)
 }
 
+// search functioin 
 
+
+
+const [like, setLike] = useState(0)
+const [disLike, setDisLike] = useState(0)
+
+// google maps 
+
+  
+//   <div className='likes'>
+//       <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
+//        <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
+//        </div>
+//  </div>  
+
+const aboutRef = useRef(null)
+
+const scrollDown = () => {
+  window.scrollTo({
+    top: aboutRef.current.offsetTop,
+    behavior: 'smooth',
+  });
+};
   return (
 <>
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></hr></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+
+<Navbar bg="light" expand="lg">
+  <Container fluid>
+    <Navbar.Brand href="#">Travel Hub</Navbar.Brand>
+    <Navbar.Toggle aria-controls="navbarScroll" />
+    <Navbar.Collapse id="navbarScroll">
+      <Nav
+        className="me-auto my-2 my-lg-0"
+        style={{ maxHeight: '100px' }}
+        navbarScroll
+      >
+        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link onClick={scrollDown}>About</Nav.Link>
+        <NavDropdown title="Contact Us" id="navbarScrollingDropdown">
+          <NavDropdown.Item href="instagram.com">Instagram</NavDropdown.Item>
+          <NavDropdown.Item href="#">Email</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="#action5">
+           GitHub
+          </NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+      <Form className="d-flex">
+      <input placeholder="Find Destination" onChange={event => setQuery(event.target.value)} />
+     {
+    destination.filter(post => {
+    if (query === '') {
+      return post;
+    } else if (post.title.toLowerCase().includes(query.toLowerCase())) {
+      return post;
+    }
+  }).map((post, index) => (
+    <div className="box" key={index}>
+      <p>{post.location}</p>
     </div>
-  </div>
-</nav>
+  ))
+}
+        <Button variant="outline-success">Search</Button>
+      </Form>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
 
 <Carousel>
   <Carousel.Item>
@@ -252,7 +285,7 @@ const info = ()=>{
       <input type="submit" value='Add Location'/> */}
     {/* </form> */}
      <h1>Top Spots</h1> 
-
+   
      <div className='container'>
        <button onClick={toggle} >
        {toggle ? 
@@ -312,7 +345,24 @@ const info = ()=>{
     )
   })}
 </ol>
+<div>
+     
+  
+    </div>
+
+
+<h1>About Us.</h1>
+<h6 ref={aboutRef}>
+Bacon ipsum dolor amet non meatball elit sirloin, short ribs brisket do. Brisket ipsum enim sed alcatra fugiat, frankfurter chicken. Capicola in id pork loin shank ea. Alcatra kielbasa excepteur anim, flank nisi strip steak ullamco minim cupidatat pariatur. Ea chuck aliqua mollit magna meatball bacon short ribs enim spare ribs excepteur. In shankle turducken tongue ham pork loin. Shoulder venison kielbasa, andouille jerky magna turkey enim pork chop voluptate veniam non.
+
+Cillum ham hock in, pork belly laboris venison meatball swine aute ut. Beef jerky shankle duis, flank voluptate corned beef. Shoulder pork chop meatball sausage pig ut anim tail id ut. Meatball ad do boudin turducken sirloin pancetta reprehenderit chuck kevin esse burgdoggen salami consequat. Beef ribs quis sint irure ea andouille leberkas deserunt cow landjaeger.
+
+</h6>
 </div>
+<footer>
+  Created By Yulia and Sage.
+</footer>
+
      </>) 
   
 }
