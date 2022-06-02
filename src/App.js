@@ -2,15 +2,20 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-import { FaTimes } from "react-icons/fa"
-import { FaHeart } from "react-icons/fa"
-import { FaHeartBroken } from "react-icons/fa"
-import { FaCheck } from "react-icons/fa"
-import { FaEdit } from "react-icons/fa"
-import { FaArrowUp } from "react-icons/fa"
+import { FaTimes, FaHeart, FaHeartBroken, FaEdit, FaArrowUp } from "react-icons/fa"
+
 import Carousel from 'react-bootstrap/Carousel'
+import { GoogleMap, LoadScript} from '@react-google-maps/api'
+ 
+
+const mapContainerStyle = {width:'100vw', height:'100vh'}
+const center ={lat: 38.893452, lng: -77.014709 }
 
 const App = () =>{
+
+
+ {/* <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}></GoogleMap> */}
+
 
 const [location, setLocation] = useState()
 const [country, setCountry] = useState()
@@ -89,6 +94,7 @@ const handleNewUpdate = (event, newListData) =>{
 
   }).then(() =>{
 axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
+  console.log(newListData._id)
 setPlace(response.data)
 })
 
@@ -132,13 +138,14 @@ const highToLow = () =>{
 //_____TOGGLE FORM
 const [updateForm, setUpdateForm] = useState(false)
 const [addForm, setAddForm] = useState(false)
+
 const form =() =>{
   setAddForm(!addForm)
   setToggle(false)
 }
 const updateFormToggle =()=>{
-
-  setUpdateForm(!updateForm)
+  
+ setUpdateForm(!updateForm)
 
 }
 //______TOGGLE FOR MAIN CHUNK OF INFO
@@ -151,15 +158,15 @@ const info = ()=>{
 
   return (
 <>
-<div className='container'>
+<div className='container' style={{marginBottom: -50}}>
   <h1>Places</h1>
-  
+
   <div className='likes'>
       <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
        <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
        </div>
  </div>   
-       <div style={{ display: 'block'}}>
+       <div style={{ display: 'block', marginBottom: -100}}>
       
       <Carousel fade>
         <Carousel.Item interval={1500}>
@@ -243,7 +250,6 @@ const info = ()=>{
         </Carousel.Item>
       </Carousel>
     </div>
-  
     <button className="btn btn-light" onClick={info} ><h1>Explore Places </h1> </button>
     <button className="btn btn-light" onClick={form}><h2>Bucket List</h2></button>
     <div className='container'>
@@ -306,13 +312,10 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
     </form> 
     <ol>
    
-  {places.map((list)=>{
+  {places.map((list, key)=>{
     return (
-      <>
-       
-      <div key={list._id}>
     
-     
+   <div key={list._id}>
      <li><h3 >{list.location}, {list.country}</h3></li>
       <FaEdit  onClick={updateFormToggle}/>
       <FaTimes  onClick={(event)=>handleNewDelete(list)}/>
@@ -322,9 +325,8 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
       <li>Must See Places: {list.mustSee}</li>
 
       </ul>
-    
-       { updateForm? 
-       
+ 
+       {  updateForm ?
         <form onSubmit={(event)=>{handleNewUpdate(event, list)}}>
       Name: <input className='form-control' type='text' defaultValue={list.location} onChange={handleNewCity}/>
       Country:<input className='form-control' type='text' defaultValue={list.country} onChange={handleNewCountry}/>
@@ -334,10 +336,10 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
       <input className="btn btn-secondary" type="submit" value='Update'/>
      
     </form> : ""}
-  
+    
       
+     
       </div>
-      </>
     )
   })}
   </ol>
@@ -346,6 +348,9 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
   : ""}
 
 </div>
+<LoadScript googleMapsApiKey = 'AIzaSyCJg_5HSp2BT6pXK-nAzG6KoqrOOfBtVxI'> 
+  <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}></GoogleMap>
+  </LoadScript>
      </>) 
   
 }
