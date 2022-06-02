@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -6,7 +6,13 @@ import { FaTimes, FaHeart, FaHeartBroken, FaEdit, FaArrowUp } from "react-icons/
 
 import Carousel from 'react-bootstrap/Carousel'
 import { GoogleMap, LoadScript} from '@react-google-maps/api'
- 
+import Navbar from 'react-bootstrap/Navbar'
+import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Button from 'react-bootstrap/Button'
+import FormControl from 'react-bootstrap/FormControl'
+import Form from 'react-bootstrap/Form'
 
 const mapContainerStyle = {width: '100%', height:300}
 // const center ={lat: 38.893452, lng: -77.014709 }
@@ -32,6 +38,7 @@ const [sights, setSights] = useState()
 const [restaurants, setRestaurants] = useState()
 const[complete, setComplete] = useState(false)
 const [places, setPlace] = useState([])
+const [query, setQuery] = useState("")
 
 //_______WANT TO GO LIST
 const handleNewCity= (event) =>{
@@ -155,18 +162,68 @@ const info = ()=>{
   setToggle(!toggle)
   setAddForm(false)
 }
+ {/* <div className='likes'>
+      <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
+       <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
+       </div> */}
+const aboutRef = useRef()
 
+const scrollDown = () => {
+  window.scrollTo({
+    top: aboutRef.current.offsetTop,
+    behavior: 'smooth',
+  });
+};
+ 
 
   return (
 <>
-<div className='container' style={{marginBottom: -50}}>
+{/* <div className='container' style={{marginBottom: -50}}>
   <h1>Places</h1>
 
-  <div className='likes'>
-      <FaHeart onClick={()=>(setLike(like + 1))}/>{like}
-       <FaHeartBroken onClick={()=>(setDisLike(disLike -1))}/>{disLike} 
-       </div>
- </div>   
+ 
+ </div>    */}
+ <Navbar bg="light" expand="lg">
+  <Container fluid>
+    <Navbar.Brand href="#">Travel Hub</Navbar.Brand>
+    <Navbar.Toggle aria-controls="navbarScroll" />
+    <Navbar.Collapse id="navbarScroll">
+      <Nav
+        className="me-auto my-2 my-lg-0"
+        style={{ maxHeight: '100px' }}
+        navbarScroll
+      >
+        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link onClick={scrollDown}>About</Nav.Link>
+        <NavDropdown title="Contact Us" id="navbarScrollingDropdown">
+          <NavDropdown.Item href="instagram.com">Instagram</NavDropdown.Item>
+          <NavDropdown.Item href="#">Email</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="#action5">
+           GitHub
+          </NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+      <Form className="d-flex">
+      <input placeholder="Find Destination" onChange={event => setQuery(event.target.value)} />
+     {
+    destination.filter(post => {
+    if (query === '') {
+      return post;
+    } else if (post.title.toLowerCase().includes(query.toLowerCase())) {
+      return post;
+    }
+  }).map((post, index) => (
+    <div className="box" key={index}>
+      <p>{post.location}</p>
+    </div>
+  ))
+}
+        <Button variant="outline-success">Search</Button>
+      </Form>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
        <div style={{ display: 'block', marginBottom: -100}}>
       
       <Carousel fade>
@@ -356,6 +413,18 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
 <div>
 
  </div>
+ <div>
+ <h1>About Us.</h1>
+<h6 ref={aboutRef}>
+Bacon ipsum dolor amet non meatball elit sirloin, short ribs brisket do. Brisket ipsum enim sed alcatra fugiat, frankfurter chicken. Capicola in id pork loin shank ea. Alcatra kielbasa excepteur anim, flank nisi strip steak ullamco minim cupidatat pariatur. Ea chuck aliqua mollit magna meatball bacon short ribs enim spare ribs excepteur. In shankle turducken tongue ham pork loin. Shoulder venison kielbasa, andouille jerky magna turkey enim pork chop voluptate veniam non.
+
+Cillum ham hock in, pork belly laboris venison meatball swine aute ut. Beef jerky shankle duis, flank voluptate corned beef. Shoulder pork chop meatball sausage pig ut anim tail id ut. Meatball ad do boudin turducken sirloin pancetta reprehenderit chuck kevin esse burgdoggen salami consequat. Beef ribs quis sint irure ea andouille leberkas deserunt cow landjaeger.
+
+</h6>
+</div>
+<footer>
+  Created By Yulia and Sage.
+</footer>
      </>) 
   
 }
