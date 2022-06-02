@@ -8,8 +8,8 @@ import Carousel from 'react-bootstrap/Carousel'
 import { GoogleMap, LoadScript} from '@react-google-maps/api'
  
 
-const mapContainerStyle = {width:'100vw', height:'100vh'}
-const center ={lat: 38.893452, lng: -77.014709 }
+const mapContainerStyle = {width: '100%', height:300}
+// const center ={lat: 38.893452, lng: -77.014709 }
 
 const App = () =>{
 
@@ -49,10 +49,11 @@ const handleImg = (event) =>{
 const handleRestaurants = (event) =>{
   setRestaurants(event.target.value)
 }
+
 const addNewList = (event) =>{
   event.preventDefault()
   axios.post(
-    'https://travelblogbackend.herokuapp.com/placestogo', {
+    'http://localhost:3000/placestogo', {
       location: newCity,
       country: newCountry,
       image: img,
@@ -61,7 +62,7 @@ const addNewList = (event) =>{
   
     }
   ).then(() =>{
-    axios.get('https://travelblogbackend.herokuapp.com/placestogo').then( (response) =>{
+    axios.get('http://localhost:3000/placestogo').then( (response) =>{
       console.log(response.data)
       setPlace(response.data)
     })
@@ -69,14 +70,14 @@ const addNewList = (event) =>{
 }
 useEffect(()=>{
   axios
-      .get('https://travelblogbackend.herokuapp.com/placestogo')
+      .get('http://localhost:3000/placestogo')
       .then((response)=>{
         setPlace(response.data);
       })
 },[])
 const handleNewDelete = (newListData) =>{
-  axios.delete(`https://travelblogbackend.herokuapp.com/placestogo/${newListData._id}`).then(() =>{
-axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
+  axios.delete(`http://localhost:3000/placestogo/${newListData._id}`).then(() =>{
+axios.get('http://localhost:3000/placestogo').then((response) =>{
 
 setPlace(response.data)
 })
@@ -84,7 +85,7 @@ setPlace(response.data)
 }
 const handleNewUpdate = (event, newListData) =>{
   event.preventDefault();
-  axios.put(`https://travelblogbackend.herokuapp.com/placestogo/${newListData._id}`,
+  axios.put(`http://localhost:3000/placestogo/${newListData._id}`,
   {
     location: newCity,
     country: newCountry,
@@ -93,7 +94,7 @@ const handleNewUpdate = (event, newListData) =>{
     restaurants: restaurants,
 
   }).then(() =>{
-axios.get('https://travelblogbackend.herokuapp.com/placestogo').then((response) =>{
+axios.get('http://localhost:3000/placestogo').then((response) =>{
   console.log(newListData._id)
 setPlace(response.data)
 })
@@ -103,7 +104,7 @@ setPlace(response.data)
 
 useEffect(()=>{
   axios
-      .get('https://travelblogbackend.herokuapp.com/')
+      .get('http://localhost:3000/')
       .then((response)=>{
         setDestination(response.data);
       })
@@ -112,7 +113,7 @@ useEffect(()=>{
 
 const handleLocationDelete = (locationData) =>{
   axios.delete(`/${locationData._id}`).then(() =>{
-axios.get('https://travelblogbackend.herokuapp.com/').then((response) =>{
+axios.get('http://localhost:3000/').then((response) =>{
 setDestination(response.data)
 })
   })
@@ -285,7 +286,11 @@ const info = ()=>{
         </ul>
         <h4>Per person / per day:{spots.costPerPerson} $</h4>
         <h4>The best time to come: {spots.bestTime}</h4>
-   
+        <div className='container'>
+        <LoadScript googleMapsApiKey = {process.env.REACT_APP_GOOGLE}> 
+  <GoogleMap mapContainerStyle={mapContainerStyle} center={{lat: spots.lat, lng: spots.lng }} zoom={10}></GoogleMap>
+ </LoadScript>
+ </div>
         <button className="btn btn-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
       
@@ -348,9 +353,9 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
   : ""}
 
 </div>
-<LoadScript googleMapsApiKey = {process.env.REACT_APP_GOOGLE}> 
-  <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}></GoogleMap>
- </LoadScript>
+<div>
+
+ </div>
      </>) 
   
 }

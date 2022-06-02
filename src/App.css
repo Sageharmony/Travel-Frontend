@@ -89,3 +89,7 @@ li{
   border: 1px solid rgb(58, 55, 55) !important;
   margin-bottom: 10px;;
 }
+
+.map{
+  height: 100px;
+}
