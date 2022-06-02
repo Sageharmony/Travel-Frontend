@@ -323,7 +323,9 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
 
       </ul>
     
-       { updateForm? <form onSubmit={(event)=>{handleNewUpdate(event, list)}}>
+       { updateForm? 
+       
+        <form onSubmit={(event)=>{handleNewUpdate(event, list)}}>
       Name: <input className='form-control' type='text' defaultValue={list.location} onChange={handleNewCity}/>
       Country:<input className='form-control' type='text' defaultValue={list.country} onChange={handleNewCountry}/>
       Must See: <input className='form-control' type='text' defaultValue={list.mustSee} onChange={handleSights}/>
