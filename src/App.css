@@ -102,6 +102,7 @@ li{
   margin-bottom: -5em;
 }
 #search{
+  position: sticky;
   height: 40px;
   margin-left: 20px !important;
   margin-bottom: 20px !important;
