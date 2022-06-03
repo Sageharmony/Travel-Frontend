@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, React} from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-import { FaTimes, FaHeart, FaHeartBroken, FaEdit, FaArrowUp, FaGlobeEurope, FaHandPointLeft, FaInstagramSquare } from "react-icons/fa"
+import { FaTimes, FaEdit, FaArrowUp, FaGlobeEurope, FaHandPointLeft, FaInstagramSquare } from "react-icons/fa"
 
 import Carousel from 'react-bootstrap/Carousel'
 import { GoogleMap, LoadScript} from '@react-google-maps/api'
@@ -210,8 +210,9 @@ const scrollDown = () => {
       <input id = "search" placeholder="Find Destination" onChange={event => setQuery(event.target.value)} />
   
       <NavDropdown id="navbarScrollingDropdown">
+   
      {
-    destination.filter((post) => {
+    destination.filter(post => {
       if(query.length > 0){
     if (post.location.toLowerCase().includes(query.toLowerCase())) {
       return post
@@ -313,7 +314,7 @@ const scrollDown = () => {
     </div>
     <div className='container'>
  <h1>About Us.</h1>
-<p ref={aboutRef}>
+<div ref={aboutRef}>
 
 <p>Have you ever wondered:</p>
 
@@ -327,7 +328,7 @@ const scrollDown = () => {
 
 <p>If you answered yes to any of these questions, you are not alone as we once asked those questions ourselves.</p>
 <p>Follow us in our journey! < a href="https://www.instagram.com/?hl=en"> <FaInstagramSquare/></a></p>
-</p>
+</div>
 </div>
     <button className="btn btn-light" onClick={info} ><h1>Explore Places </h1> </button>
     <button className="btn btn-light" onClick={form}><h2>Bucket List</h2></button>
