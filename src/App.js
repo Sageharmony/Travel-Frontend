@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, React} from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-import { FaTimes, FaHeart, FaHeartBroken, FaEdit, FaArrowUp } from "react-icons/fa"
+import { FaTimes, FaHeart, FaHeartBroken, FaEdit, FaArrowUp, FaGlobeEurope, FaHandPointLeft, FaInstagramSquare } from "react-icons/fa"
 
 import Carousel from 'react-bootstrap/Carousel'
 import { GoogleMap, LoadScript} from '@react-google-maps/api'
@@ -15,12 +15,11 @@ import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 
 const mapContainerStyle = {width: '100%', height:300}
-// const center ={lat: 38.893452, lng: -77.014709 }
+
 
 const App = () =>{
 
 
- {/* <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}></GoogleMap> */}
 
 
 const [location, setLocation] = useState()
@@ -38,7 +37,7 @@ const [sights, setSights] = useState()
 const [restaurants, setRestaurants] = useState()
 const[complete, setComplete] = useState(false)
 const [places, setPlace] = useState([])
-const [query, setQuery] = useState()
+const [query, setQuery] = useState("")
 
 //_______WANT TO GO LIST
 const handleNewCity= (event) =>{
@@ -185,29 +184,32 @@ const scrollDown = () => {
  </div>    */}
  <Navbar bg="light" expand="lg">
   <Container fluid>
-    {/* <Navbar.Brand href="#">Places</Navbar.Brand> */}
+    
     <Navbar.Toggle aria-controls="navbarScroll" />
     <Navbar.Collapse id="navbarScroll">
       <Nav
         className="me-auto my-2 my-lg-0"
         style={{ maxHeight: '100px' }}
         navbarScroll
-      >
-        <Nav.Link href="/">Places</Nav.Link>
+      ><Navbar.Brand href="/"><FaGlobeEurope/></Navbar.Brand>
+        <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link onClick={scrollDown}>About</Nav.Link>
         <NavDropdown title="Contact Us" id="navbarScrollingDropdown">
-          <NavDropdown.Item href="instagram.com">Instagram</NavDropdown.Item>
-          <NavDropdown.Item href="#">Email</NavDropdown.Item>
+          <NavDropdown.Item href="https://www.instagram.com/?hl=en" target="_blank">Instagram</NavDropdown.Item>
+          <NavDropdown.Item href="mailto:someone@yoursite.com" target="_blank">Email</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="#action5">
+          <NavDropdown.Item href="https://github.com/" target="_blank">
            GitHub
           </NavDropdown.Item>
         </NavDropdown>
       </Nav>
+      
+      
+      
       <Form  className="d-flex ">
-      <input placeholder="Find Destination" onChange={event => setQuery(event.target.value)} />
+      <input placeholder="Find Destination" onChange={(event) => setQuery(event.target.value)} />
      {/* {
-    destination.filter(post => {
+    destination.filter((post) => {
     if (query === '') {
       return post;
     } else if (post.title.toLowerCase().includes(query.toLowerCase())) {
@@ -308,6 +310,24 @@ const scrollDown = () => {
         </Carousel.Item>
       </Carousel>
     </div>
+    <div className='container'>
+ <h1>About Us.</h1>
+<p ref={aboutRef}>
+
+<p>Have you ever wondered:</p>
+
+<p><i>“What’s the best way to start planning a trip?”</i></p>
+
+<p><i>“How do I find the best things to do while on the road?”</i></p>
+
+<p><i>“How can some people afford to travel for so long?”</i></p>
+
+<p><i>“How do people make money from travel blogging?”</i></p>
+
+<p>If you answered yes to any of these questions, you are not alone as we once asked those questions ourselves.</p>
+<p>Follow us in our journey! < a href="https://www.instagram.com/?hl=en"> <FaInstagramSquare/></a></p>
+</p>
+</div>
     <button className="btn btn-light" onClick={info} ><h1>Explore Places </h1> </button>
     <button className="btn btn-light" onClick={form}><h2>Bucket List</h2></button>
     <div className='container'>
@@ -327,7 +347,31 @@ const scrollDown = () => {
       
       
         <img className='img-fluid' src={spots.image}/>
-        <h4> Things to Do: </h4>
+        <dl className="row" style={{marginTop: 20}}>
+  <dt className="col-sm-3"><h5>Things To Do</h5></dt>
+  <dd className="col-sm-9">
+        <p><a href={spots.mustSee[0].link} target="_blank" rel="noreferrer">{spots.mustSee[0].name}.<FaHandPointLeft/></a></p>
+        <p><a href={spots.mustSee[1].link} target="_blank" rel="noreferrer">{spots.mustSee[1].name}.<FaHandPointLeft/></a></p>
+        <p><a href={spots.mustSee[2].link} target="_blank" rel="noreferrer">{spots.mustSee[2].name}.<FaHandPointLeft/></a></p>
+        <p><a href={spots.mustSee[3].link} target="_blank" rel="noreferrer">{spots.mustSee[3].name}.<FaHandPointLeft/></a></p>
+  </dd>
+
+  <dt className="col-sm-3"><h5>Restaurants To Try</h5></dt>
+  <dd className="col-sm-9">
+        <p><a href={spots.restaurantsToTry[0].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[0].name}.</a><FaHandPointLeft/></p>
+        <p><a href={spots.restaurantsToTry[1].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[1].name}.</a><FaHandPointLeft/></p>
+        <p><a href={spots.restaurantsToTry[2].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[2].name}.</a><FaHandPointLeft/></p>
+        <p><a href={spots.restaurantsToTry[3].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[3].name}.</a><FaHandPointLeft/></p>
+  </dd>
+
+  <dt className="col-sm-3"><h5>Cost per person/per day</h5></dt>
+  <dd className="col-sm-9">{spots.costPerPerson} $</dd>
+
+  <dt className="col-sm-3 text-truncate"><h5>Best Time To Come</h5></dt>
+  <dd className="col-sm-9">{spots.bestTime}.</dd>
+</dl>
+        
+        {/* <h4> Things to Do: </h4>
         <ul>
         <li><a href={spots.mustSee[0].link} target="_blank" rel="noreferrer">{spots.mustSee[0].name}</a></li>
         <li><a href={spots.mustSee[1].link} target="_blank" rel="noreferrer">{spots.mustSee[1].name}</a></li>
@@ -342,7 +386,7 @@ const scrollDown = () => {
         <li><a href={spots.restaurantsToTry[3].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[3].name}</a></li>
         </ul>
         <h4>Per person / per day:{spots.costPerPerson} $</h4>
-        <h4>The best time to come: {spots.bestTime}</h4>
+        <h4>The best time to come: {spots.bestTime}</h4> */}
         <div className='container'>
         <LoadScript googleMapsApiKey = {process.env.REACT_APP_GOOGLE}> 
   <GoogleMap mapContainerStyle={mapContainerStyle} center={{lat: spots.lat, lng: spots.lng }} zoom={10}></GoogleMap>
@@ -413,15 +457,7 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
 <div>
 
  </div>
- <div className='container'>
- <h1>About Us.</h1>
-<p ref={aboutRef}>
-Bacon ipsum dolor amet non meatball elit sirloin, short ribs brisket do. Brisket ipsum enim sed alcatra fugiat, frankfurter chicken. Capicola in id pork loin shank ea. Alcatra kielbasa excepteur anim, flank nisi strip steak ullamco minim cupidatat pariatur. Ea chuck aliqua mollit magna meatball bacon short ribs enim spare ribs excepteur. In shankle turducken tongue ham pork loin. Shoulder venison kielbasa, andouille jerky magna turkey enim pork chop voluptate veniam non.
-
-Cillum ham hock in, pork belly laboris venison meatball swine aute ut. Beef jerky shankle duis, flank voluptate corned beef. Shoulder pork chop meatball sausage pig ut anim tail id ut. Meatball ad do boudin turducken sirloin pancetta reprehenderit chuck kevin esse burgdoggen salami consequat. Beef ribs quis sint irure ea andouille leberkas deserunt cow landjaeger.
-
-</p>
-</div>
+ 
 <footer style={{textAlign: 'center'}}>
   Created By Yulia and Sage.
 </footer>
