@@ -71,7 +71,7 @@ li{
 .img-thumbnail{
   width: 500px;
 }
-.btn-success{
+.btn-outline-success{
   margin-left: 20px !important;
   margin-bottom: 20px !important;
   float: right
@@ -90,6 +90,19 @@ li{
   margin-bottom: 10px;;
 }
 
-.map{
-  height: 100px;
+
+.NavCon{
+  display: flex;
+  height: .75sem;
+  justify-content: center;
+  align-items: center;
+}
+.navbar{
+  width: 100%;
+  margin-bottom: -9em;
+}
+#search{
+  height: 2.5em;
+  margin-right: 3em;
+  margin-bottom: 1em;
 }

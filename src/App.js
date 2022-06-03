@@ -207,21 +207,22 @@ const scrollDown = () => {
       
       
       <Form  className="d-flex ">
-      <input placeholder="Find Destination" onChange={(event) => setQuery(event.target.value)} />
-     {/* {
+      <input id = "search" placeholder="Find Destination" onChange={event => setQuery(event.target.value)} />
+  
+      <NavDropdown id="navbarScrollingDropdown">
+     {
     destination.filter((post) => {
-    if (query === '') {
-      return post;
-    } else if (post.title.toLowerCase().includes(query.toLowerCase())) {
-      return post;
-    }
+      if(query.length > 0){
+    if (post.location.toLowerCase().includes(query.toLowerCase())) {
+      return post
+    }}
   }).map((post, index) => (
-    <div className="box" key={index}>
-      <p>{post.location}</p>
+    <div key={index}>
+    <NavDropdown.Item>{post.location}</NavDropdown.Item>
     </div>
-  ))
-} */}
-        <Button variant="outline-success">Search</Button>
+  ))}
+  </NavDropdown>
+        <Button variant="outline-success" id = "search">Search</Button>
       </Form>
     </Navbar.Collapse>
   </Container>
@@ -335,8 +336,8 @@ const scrollDown = () => {
 
      { toggle ?
     <>
-    <button className="btn btn-success" onClick = {lowToHigh}>Sort low to high</button>
-    <button className="btn btn-success" onClick = {highToLow}>Sort high to low</button>
+    <button className="btn btn-outline-success" onClick = {lowToHigh}>Sort low to high</button>
+    <button className="btn btn-outline-success" onClick = {highToLow}>Sort high to low</button>
      {destination.map((spots) =>{
       return(
         
@@ -371,28 +372,13 @@ const scrollDown = () => {
   <dd className="col-sm-9">{spots.bestTime}.</dd>
 </dl>
         
-        {/* <h4> Things to Do: </h4>
-        <ul>
-        <li><a href={spots.mustSee[0].link} target="_blank" rel="noreferrer">{spots.mustSee[0].name}</a></li>
-        <li><a href={spots.mustSee[1].link} target="_blank" rel="noreferrer">{spots.mustSee[1].name}</a></li>
-        <li><a href={spots.mustSee[2].link} target="_blank" rel="noreferrer">{spots.mustSee[2].name}</a></li>
-        <li><a href={spots.mustSee[3].link} target="_blank" rel="noreferrer">{spots.mustSee[3].name}</a></li>
-        </ul>
-        <h4>Restaurants to try: </h4>
-        <ul>
-        <li><a href={spots.restaurantsToTry[0].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[0].name}</a></li>
-        <li><a href={spots.restaurantsToTry[1].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[1].name}</a></li>
-        <li><a href={spots.restaurantsToTry[2].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[2].name}</a></li>
-        <li><a href={spots.restaurantsToTry[3].link}target="_blank" rel="noreferrer">{spots.restaurantsToTry[3].name}</a></li>
-        </ul>
-        <h4>Per person / per day:{spots.costPerPerson} $</h4>
-        <h4>The best time to come: {spots.bestTime}</h4> */}
+        
         <div className='container'>
         <LoadScript googleMapsApiKey = {process.env.REACT_APP_GOOGLE}> 
   <GoogleMap mapContainerStyle={mapContainerStyle} center={{lat: spots.lat, lng: spots.lng }} zoom={10}></GoogleMap>
  </LoadScript>
  </div>
-        <button className="btn btn-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
+        <button className="btn btn-outline-secondary" onClick={(event) => handleLocationDelete(spots)}>Delete this Listing</button>
       </div>
       
        )}
