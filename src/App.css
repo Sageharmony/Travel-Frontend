@@ -93,16 +93,17 @@ li{
 
 .NavCon{
   display: flex;
-  height: .75sem;
+  height: .75em;
   justify-content: center;
   align-items: center;
 }
 .navbar{
   width: 100%;
-  margin-bottom: -9em;
+  margin-bottom: -10em;
 }
 #search{
   height: 2.5em;
   margin-right: 3em;
   margin-bottom: 1em;
 }
+

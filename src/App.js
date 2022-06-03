@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, React} from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-import { FaTimes, FaEdit, FaArrowUp, FaGlobeEurope, FaHandPointLeft, FaInstagramSquare } from "react-icons/fa"
+import { FaTimes, FaEdit, FaArrowUp, FaGlobeEurope, FaHandPointLeft, FaInstagramSquare, FaGithub, FaEnvelope } from "react-icons/fa"
 
 import Carousel from 'react-bootstrap/Carousel'
 import { GoogleMap, LoadScript} from '@react-google-maps/api'
@@ -191,17 +191,18 @@ const handleChange = (e) => {
         className="me-auto my-2 my-lg-0"
         style={{ maxHeight: '100px' }}
         navbarScroll
-      ><Navbar.Brand href="/"><FaGlobeEurope/></Navbar.Brand>
-        <Nav.Link href="/">Home</Nav.Link>
-        <Nav.Link onClick={scrollDown}>About</Nav.Link>
-        <NavDropdown title="Contact Us" id="navbarScrollingDropdown">
-          <NavDropdown.Item href="https://www.instagram.com/?hl=en" target="_blank">Instagram</NavDropdown.Item>
-          <NavDropdown.Item href="mailto:someone@yoursite.com" target="_blank">Email</NavDropdown.Item>
+      ><Navbar.Brand style={{marginLeft:50, fontSize: 30}} href="/"><FaGlobeEurope/>PLACES.</Navbar.Brand>
+   
+        <Nav.Link style={{marginLeft:700, marginTop: 10}} id ="navlink" href="/">Home.</Nav.Link>
+        <Nav.Link style={{ marginTop: 10}} id ="navlink" onClick={scrollDown}>About.</Nav.Link>
+        <NavDropdown style={{marginTop: 10}} title="Contact Us." id="navbarScrollingDropdown">
+          <NavDropdown.Item href="https://www.instagram.com/?hl=en" target="_blank">Instagram.</NavDropdown.Item>
+          <NavDropdown.Item href="mailto:someone@yoursite.com" target="_blank">Email.</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="https://github.com/" target="_blank">
-           GitHub
-          </NavDropdown.Item>
+          <NavDropdown.Item href="https://github.com/" target="_blank">GitHub.</NavDropdown.Item>
+          
         </NavDropdown>
+      
       </Nav>
    
     </Navbar.Collapse>
@@ -439,6 +440,11 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
  
 <footer style={{textAlign: 'center'}}>
   Created By Yulia and Sage.
+  <p>
+  < a href="https://www.instagram.com/?hl=en"> <FaInstagramSquare/></a>
+  < a href="mailto:someone@yoursite.com"> <FaEnvelope/> </a>
+  < a href="https://github.com/"> <FaGithub/></a>
+  </p>
 </footer>
      </>) 
   
