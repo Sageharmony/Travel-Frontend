@@ -182,7 +182,7 @@ const handleChange = (e) => {
 
  
  </div>    */}
- <Navbar bg="light" expand="lg">
+ <Navbar className='navbar-custom'  bg="light" expand="lg">
   <Container fluid>
     
     <Navbar.Toggle aria-controls="navbarScroll" />
@@ -191,11 +191,11 @@ const handleChange = (e) => {
         className="me-auto my-2 my-lg-0"
         style={{ maxHeight: '100px' }}
         navbarScroll
-      ><Navbar.Brand style={{marginLeft:50, fontSize: 30}} href="/"><FaGlobeEurope/>PLACES.</Navbar.Brand>
+      ><Navbar.Brand style={{marginLeft:50, marginTop:5, fontSize: 35}} href="/"><FaGlobeEurope/>PLACES.</Navbar.Brand>
    
-        <Nav.Link style={{marginTop: 10}} id ="navlink" href="/">Home.</Nav.Link>
-        <Nav.Link style={{marginTop: 10}} id ="navlink" onClick={scrollDown}>About.</Nav.Link>
-        <NavDropdown style={{marginTop: 10}} title="Contact Us." id="navbarScrollingDropdown">
+        <Nav.Link style={{marginTop: 20 }} id ="navlink" href="/">Home.</Nav.Link>
+        <Nav.Link style={{marginTop: 20}} id ="navlink" onClick={scrollDown}>About.</Nav.Link>
+        <NavDropdown style={{marginTop: 20}} title="Contact Us." id="navbarScrollingDropdown">
           <NavDropdown.Item href="https://www.instagram.com/?hl=en" target="_blank">Instagram.</NavDropdown.Item>
           <NavDropdown.Item href="mailto:someone@yoursite.com" target="_blank">Email.</NavDropdown.Item>
           <NavDropdown.Divider />

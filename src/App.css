@@ -99,7 +99,7 @@ li{
 }
 .navbar{
   width: 100%;
-  margin-bottom: -10em;
+  margin-bottom: -5em;
 }
 #search{
   height: 2.5em;
@@ -107,3 +107,10 @@ li{
   margin-bottom: 1em;
 }
 
+/* .navbar-custom{
+  height: 100px;
+} */
+
+#navbarScroll{
+  font-size: 20px;
+}
