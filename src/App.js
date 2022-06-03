@@ -312,31 +312,25 @@ const handleChange = (e) => {
     <button className="btn btn-light" onClick={info} ><h1>Explore Places </h1> </button>
     <button className="btn btn-light" onClick={form}><h2>Bucket List</h2></button>
     <div className='container'>
+
+     
     { toggle ?
     <>
-    <Form  id = "search" className="d-flex ">
-      <input  placeholder="Find Destination" onChange={handleChange} />
   
-      <NavDropdown id="navbarScrollingDropdown">
+      <input type="search" id="search"  placeholder="Find Destination" onChange={handleChange} />
+      <button className="btn btn-outline-success" id = "search" onClick = {lowToHigh}>Sort low to high</button>
+      <button className="btn btn-outline-success" id = "search"  onClick = {highToLow}>Sort high to low</button>
+      
    
      {
-    destination.filter(post => {
-     return(post.location.toLowerCase().includes(query.toLowerCase())) 
+    destination.filter(spots => {
+      if (query == ""){
+        return spots
+      }else if (spots.location.toLowerCase().includes(query.toLowerCase())) {
+          return spots
+        }
     
-  }).map((post, index) => (
-    <div style={{margin:5}} key={index}>
-    <NavDropdown.Item >{post.location}</NavDropdown.Item>
-    </div>
-  ))}
-  </NavDropdown>
-        <Button variant="outline-success" id = "search">Search</Button>
-        <Button variant="outline-success" id = "search" onClick = {lowToHigh}>Sort low to high</Button>
-        <Button variant="outline-success"  id = "search" onClick = {highToLow}>Sort high to low</Button>
-      </Form>
-
-
-   
-     {destination.map((spots) =>{
+  }).map((spots) =>{
       return(
         
       <div key={spots._id}>
@@ -400,6 +394,7 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
 
       <input className="btn btn-secondary" type="submit" value='Add Location'/>
     </form> 
+  
     <ol>
    
   {places.map((list, key)=>{
