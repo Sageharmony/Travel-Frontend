@@ -102,9 +102,10 @@ li{
   margin-bottom: -5em;
 }
 #search{
-  height: 2.5em;
-  margin-right: 3em;
-  margin-bottom: 1em;
+  height: 40px;
+  margin-left: 20px !important;
+  margin-bottom: 20px !important;
+  float: right
 }
 
 /* .navbar-custom{

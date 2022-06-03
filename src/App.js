@@ -317,11 +317,12 @@ const handleChange = (e) => {
      
     { toggle ?
     <>
-  
-      <input type="search" id="search"  placeholder="Find Destination" onChange={handleChange} />
+ 
       <button className="btn btn-outline-success" id = "search" onClick = {lowToHigh}>Sort low to high</button>
       <button className="btn btn-outline-success" id = "search"  onClick = {highToLow}>Sort high to low</button>
-      
+      <input type="search" id="search"  placeholder="Find Destination" onChange={handleChange} />
+    
+
    
      {
     destination.filter(spots => {
