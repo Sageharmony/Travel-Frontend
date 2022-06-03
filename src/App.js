@@ -193,8 +193,8 @@ const handleChange = (e) => {
         navbarScroll
       ><Navbar.Brand style={{marginLeft:50, fontSize: 30}} href="/"><FaGlobeEurope/>PLACES.</Navbar.Brand>
    
-        <Nav.Link style={{marginLeft:700, marginTop: 10}} id ="navlink" href="/">Home.</Nav.Link>
-        <Nav.Link style={{ marginTop: 10}} id ="navlink" onClick={scrollDown}>About.</Nav.Link>
+        <Nav.Link style={{marginTop: 10}} id ="navlink" href="/">Home.</Nav.Link>
+        <Nav.Link style={{marginTop: 10}} id ="navlink" onClick={scrollDown}>About.</Nav.Link>
         <NavDropdown style={{marginTop: 10}} title="Contact Us." id="navbarScrollingDropdown">
           <NavDropdown.Item href="https://www.instagram.com/?hl=en" target="_blank">Instagram.</NavDropdown.Item>
           <NavDropdown.Item href="mailto:someone@yoursite.com" target="_blank">Email.</NavDropdown.Item>
