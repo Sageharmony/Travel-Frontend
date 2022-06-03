@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, React} from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -38,7 +38,7 @@ const [sights, setSights] = useState()
 const [restaurants, setRestaurants] = useState()
 const[complete, setComplete] = useState(false)
 const [places, setPlace] = useState([])
-const [query, setQuery] = useState("")
+const [query, setQuery] = useState()
 
 //_______WANT TO GO LIST
 const handleNewCity= (event) =>{
@@ -185,7 +185,7 @@ const scrollDown = () => {
  </div>    */}
  <Navbar bg="light" expand="lg">
   <Container fluid>
-    <Navbar.Brand href="#">Travel Hub</Navbar.Brand>
+    {/* <Navbar.Brand href="#">Places</Navbar.Brand> */}
     <Navbar.Toggle aria-controls="navbarScroll" />
     <Navbar.Collapse id="navbarScroll">
       <Nav
@@ -193,7 +193,7 @@ const scrollDown = () => {
         style={{ maxHeight: '100px' }}
         navbarScroll
       >
-        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link href="/">Places</Nav.Link>
         <Nav.Link onClick={scrollDown}>About</Nav.Link>
         <NavDropdown title="Contact Us" id="navbarScrollingDropdown">
           <NavDropdown.Item href="instagram.com">Instagram</NavDropdown.Item>
@@ -204,9 +204,9 @@ const scrollDown = () => {
           </NavDropdown.Item>
         </NavDropdown>
       </Nav>
-      <Form className="d-flex">
+      <Form  className="d-flex ">
       <input placeholder="Find Destination" onChange={event => setQuery(event.target.value)} />
-     {
+     {/* {
     destination.filter(post => {
     if (query === '') {
       return post;
@@ -218,7 +218,7 @@ const scrollDown = () => {
       <p>{post.location}</p>
     </div>
   ))
-}
+} */}
         <Button variant="outline-success">Search</Button>
       </Form>
     </Navbar.Collapse>
@@ -413,16 +413,16 @@ Top Restaurants: <input className='form-control' type="text" onChange={handleRes
 <div>
 
  </div>
- <div>
+ <div className='container'>
  <h1>About Us.</h1>
-<h6 ref={aboutRef}>
+<p ref={aboutRef}>
 Bacon ipsum dolor amet non meatball elit sirloin, short ribs brisket do. Brisket ipsum enim sed alcatra fugiat, frankfurter chicken. Capicola in id pork loin shank ea. Alcatra kielbasa excepteur anim, flank nisi strip steak ullamco minim cupidatat pariatur. Ea chuck aliqua mollit magna meatball bacon short ribs enim spare ribs excepteur. In shankle turducken tongue ham pork loin. Shoulder venison kielbasa, andouille jerky magna turkey enim pork chop voluptate veniam non.
 
 Cillum ham hock in, pork belly laboris venison meatball swine aute ut. Beef jerky shankle duis, flank voluptate corned beef. Shoulder pork chop meatball sausage pig ut anim tail id ut. Meatball ad do boudin turducken sirloin pancetta reprehenderit chuck kevin esse burgdoggen salami consequat. Beef ribs quis sint irure ea andouille leberkas deserunt cow landjaeger.
 
-</h6>
+</p>
 </div>
-<footer>
+<footer style={{textAlign: 'center'}}>
   Created By Yulia and Sage.
 </footer>
      </>) 
