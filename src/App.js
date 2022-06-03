@@ -19,9 +19,6 @@ const mapContainerStyle = {width: '100%', height:300}
 
 const App = () =>{
 
-
-
-
 const [location, setLocation] = useState()
 const [country, setCountry] = useState()
 
@@ -173,7 +170,10 @@ const scrollDown = () => {
     behavior: 'smooth',
   });
 };
- 
+const handleChange = (e) => {
+  e.preventDefault()
+  setQuery(e.target.value);
+};
 
   return (
 <>
@@ -203,28 +203,7 @@ const scrollDown = () => {
           </NavDropdown.Item>
         </NavDropdown>
       </Nav>
-      
-      
-      
-      <Form  className="d-flex ">
-      <input id = "search" placeholder="Find Destination" onChange={event => setQuery(event.target.value)} />
-  
-      <NavDropdown id="navbarScrollingDropdown">
    
-     {
-    destination.filter(post => {
-      if(query.length > 0){
-    if (post.location.toLowerCase().includes(query.toLowerCase())) {
-      return post
-    }}
-  }).map((post, index) => (
-    <div key={index}>
-    <NavDropdown.Item>{post.location}</NavDropdown.Item>
-    </div>
-  ))}
-  </NavDropdown>
-        <Button variant="outline-success" id = "search">Search</Button>
-      </Form>
     </Navbar.Collapse>
   </Container>
 </Navbar>
@@ -333,12 +312,30 @@ const scrollDown = () => {
     <button className="btn btn-light" onClick={info} ><h1>Explore Places </h1> </button>
     <button className="btn btn-light" onClick={form}><h2>Bucket List</h2></button>
     <div className='container'>
-   
-
-     { toggle ?
+    { toggle ?
     <>
-    <button className="btn btn-outline-success" onClick = {lowToHigh}>Sort low to high</button>
-    <button className="btn btn-outline-success" onClick = {highToLow}>Sort high to low</button>
+    <Form  id = "search" className="d-flex ">
+      <input  placeholder="Find Destination" onChange={handleChange} />
+  
+      <NavDropdown id="navbarScrollingDropdown">
+   
+     {
+    destination.filter(post => {
+     return(post.location.toLowerCase().includes(query.toLowerCase())) 
+    
+  }).map((post, index) => (
+    <div style={{margin:5}} key={index}>
+    <NavDropdown.Item >{post.location}</NavDropdown.Item>
+    </div>
+  ))}
+  </NavDropdown>
+        <Button variant="outline-success" id = "search">Search</Button>
+        <Button variant="outline-success" id = "search" onClick = {lowToHigh}>Sort low to high</Button>
+        <Button variant="outline-success"  id = "search" onClick = {highToLow}>Sort high to low</Button>
+      </Form>
+
+
+   
      {destination.map((spots) =>{
       return(
         
