@@ -37,10 +37,7 @@
   }
 }
 
-img {
-  height: auto;
-  width: 100vw;
-}
+
 .visually-hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -68,8 +65,9 @@ li{
   /* list-style-type: circle !important; */
   font-size: 20px;
 }
-.img-thumbnail{
-  width: 500px;
+.img-fluid{
+  width: 100vw;
+  height: auto;
 }
 .btn-outline-success{
   margin-left: 20px !important;
@@ -80,9 +78,10 @@ li{
 
   border: 30px;
 }
-#car{
-  height: 80vh !important;
-}
+
+/* #car{
+  height: auto !important;
+} */
 .btn-light{
   width: 100vw !important;
   text-align: center;
@@ -99,7 +98,7 @@ li{
 }
 .navbar{
   width: 100%;
-  margin-bottom: -5em;
+  margin-bottom: -4em;
 }
 #search{
   position: sticky;
@@ -115,4 +114,13 @@ li{
 
 #navbarScroll{
   font-size: 20px;
+}
+
+@media only screen and (max-width: 600px){
+
+  img{
+    width: 100vw;
+    height: auto !important;
+  }
+  
 }
