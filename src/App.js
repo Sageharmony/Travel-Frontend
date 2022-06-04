@@ -194,8 +194,8 @@ const handleChange = (e) => {
  </div>    */}
  <Navbar className='navbar-custom'  bg="light" expand="lg">
   <Container fluid>
-    
-    <Navbar.Toggle aria-controls="navbarScroll" />
+     
+    <Navbar.Toggle aria-controls="navbarScroll"/>
     <Navbar.Collapse id="navbarScroll">
       <Nav
         className="me-auto my-2 my-lg-0"
