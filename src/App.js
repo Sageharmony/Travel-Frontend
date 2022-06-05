@@ -203,7 +203,7 @@ const handleChange = (e) => {
         className="me-auto">
           <Navbar.Brand style={{marginLeft:50, marginTop:5, fontSize: 35}} href="/"><FaGlobeEurope/>PLACES.</Navbar.Brand>
    
-        <Nav.Link style={{marginTop: 20 }} id ="navlink" href="/">Home.</Nav.Link>
+        {/* <Nav.Link style={{marginTop: 20 }} id ="navlink" href="/">Home.</Nav.Link> */}
         <Nav.Link style={{marginTop: 20}} id ="navlink" onClick={scrollDown}>About.</Nav.Link>
         <NavDropdown style={{marginTop: 20}} title="Contact Us." id="navbarScrollingDropdown">
           <NavDropdown.Item href="https://www.instagram.com/?hl=en" target="_blank">Instagram.</NavDropdown.Item>
