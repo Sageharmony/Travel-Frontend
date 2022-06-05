@@ -348,7 +348,7 @@ const handleChange = (e) => {
       <div key={spots._id}>
      
 
-        <h4>{spots.location}</h4> 
+        <h4>{spots.location}.</h4> 
       
       
         <img className='img-fluid' src={spots.image}/>
