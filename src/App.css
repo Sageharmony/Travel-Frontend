@@ -79,6 +79,9 @@ li{
   border: 30px;
 }
 
+.navbar-toggler{
+  border: none;
+}
 /* #car{
   height: auto !important;
 } */

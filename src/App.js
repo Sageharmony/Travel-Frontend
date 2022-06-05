@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, React} from 'react';
 import './App.css';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
-import { FaTimes, FaEdit, FaArrowUp, FaGlobeEurope, FaHandPointLeft, FaInstagramSquare, FaGithub, FaEnvelope } from "react-icons/fa"
+import { FaTimes, FaEdit, FaArrowUp, FaGlobeEurope, FaHandPointLeft, FaInstagramSquare, FaGithub, FaEnvelope, FaBars } from "react-icons/fa"
 import iceland from './images/iceland.jpeg'
 import chile from './images/chile.jpeg'
 import indo from './images/indo.jpeg'
@@ -195,13 +195,13 @@ const handleChange = (e) => {
  <Navbar className='navbar-custom'  bg="light" expand="lg">
   <Container fluid>
      
-    <Navbar.Toggle aria-controls="navbarScroll"/>
+    <Navbar.Toggle aria-controls="navbarScroll">
+    {/* <FaBars /> */}
+    </Navbar.Toggle>
     <Navbar.Collapse id="navbarScroll">
       <Nav
-        className="me-auto my-2 my-lg-0"
-        style={{ maxHeight: '100px' }}
-        navbarScroll
-      ><Navbar.Brand style={{marginLeft:50, marginTop:5, fontSize: 35}} href="/"><FaGlobeEurope/>PLACES.</Navbar.Brand>
+        className="me-auto">
+          <Navbar.Brand style={{marginLeft:50, marginTop:5, fontSize: 35}} href="/"><FaGlobeEurope/>PLACES.</Navbar.Brand>
    
         <Nav.Link style={{marginTop: 20 }} id ="navlink" href="/">Home.</Nav.Link>
         <Nav.Link style={{marginTop: 20}} id ="navlink" onClick={scrollDown}>About.</Nav.Link>
